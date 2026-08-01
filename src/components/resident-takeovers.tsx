@@ -6,11 +6,7 @@ import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { residents } from "@/lib/content";
 
-function ResidentPanel({
-  resident,
-}: {
-  resident: (typeof residents)[number];
-}) {
+function ResidentPanel({ resident }: { resident: (typeof residents)[number] }) {
   const ref = useRef<HTMLElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -49,7 +45,9 @@ function ResidentPanel({
         <h3 className="font-display mt-2 text-3xl uppercase tracking-tight text-bleach sm:text-4xl">
           {resident.species}
         </h3>
-        <p className="mt-3 max-w-sm text-sm leading-relaxed text-bleach/75">{resident.blurb}</p>
+        <p className="mt-3 max-w-sm text-sm leading-relaxed text-bleach/75">
+          {resident.blurb}
+        </p>
       </div>
     </article>
   );
@@ -57,16 +55,25 @@ function ResidentPanel({
 
 export function ResidentTakeovers() {
   return (
-    <section id="residents" className="bg-ink py-16 text-bleach sm:py-20" aria-label="Livestock residents">
+    <section
+      id="residents"
+      data-chrome-dark
+      className="bg-ink py-16 text-bleach sm:py-20"
+      aria-label="Livestock residents"
+    >
       <div className="mb-8 flex flex-wrap items-end justify-between gap-6 px-5 sm:px-10 lg:pl-28">
         <div>
-          <p className="font-stamp text-[10px] text-flare">Residents · Working farm</p>
+          <p className="font-stamp text-[10px] text-flare">
+            Residents · Working farm
+          </p>
           <h2 className="font-display mt-3 text-4xl uppercase tracking-tight sm:text-6xl">
             Meet the livestock
           </h2>
           <p className="mt-3 max-w-lg text-bleach/65">
-            Commercial agriculture up close — cattle, goats, hatchery chicks, giants, and guardians.
+            Commercial agriculture up close — cattle, goats, hatchery chicks,
+            giants, and guardians.
           </p>
+          <p className="font-stamp mt-3 text-[10px] text-bleach/40">Swipe →</p>
         </div>
         <Link
           href="/animals"

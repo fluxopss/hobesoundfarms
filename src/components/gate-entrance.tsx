@@ -9,11 +9,25 @@ import { site } from "@/lib/content";
 export function GateEntrance() {
   const { gateDone, setGateDone, reducedMotion } = useTrail();
   const rootRef = useRef<HTMLDivElement>(null);
+  const skipRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (reducedMotion && !gateDone) {
+      setGateDone(true);
+    }
+  }, [reducedMotion, gateDone, setGateDone]);
 
   useEffect(() => {
     if (gateDone || reducedMotion) return;
     const root = rootRef.current;
     if (!root) return;
+
+    skipRef.current?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setGateDone(true);
+    };
+    window.addEventListener("keydown", onKey);
 
     const left = root.querySelector<HTMLElement>(".gate-left");
     const right = root.querySelector<HTMLElement>(".gate-right");
@@ -38,7 +52,10 @@ export function GateEntrance() {
         .to(root, { opacity: 0, duration: 0.4, pointerEvents: "none" });
     }, root);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      window.removeEventListener("keydown", onKey);
+    };
   }, [gateDone, reducedMotion, setGateDone]);
 
   if (gateDone) return null;
@@ -48,6 +65,7 @@ export function GateEntrance() {
       ref={rootRef}
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-ink"
       role="dialog"
+      aria-modal="true"
       aria-label="Opening the farm gate"
     >
       <div className="gate-left absolute inset-y-0 left-0 w-1/2 bg-shade" />
@@ -68,16 +86,24 @@ export function GateEntrance() {
       </p>
 
       <div className="gate-brand absolute z-10 flex flex-col items-center gap-4 opacity-0">
-        <Image src={site.logo} alt="" width={72} height={72} className="h-16 w-16 object-contain" priority />
+        <Image
+          src={site.logo}
+          alt={site.name}
+          width={72}
+          height={72}
+          className="h-16 w-16 object-contain"
+          priority
+        />
         <p className="font-display text-center text-4xl uppercase tracking-tight text-bleach sm:text-6xl">
           {site.name}
         </p>
       </div>
 
       <button
+        ref={skipRef}
         type="button"
         onClick={() => setGateDone(true)}
-        className="font-stamp absolute bottom-8 right-6 z-20 text-[10px] text-bleach/50 transition hover:text-flare"
+        className="font-stamp absolute bottom-8 right-6 z-20 min-h-11 px-3 text-[10px] text-bleach/50 transition hover:text-flare"
       >
         Skip
       </button>

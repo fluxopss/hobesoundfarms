@@ -108,5 +108,7 @@ export function TrailProvider({ children }: { children: ReactNode }) {
     [reducedMotion, gateDone, markGateDone, activeChapter, scrollTo, lenis],
   );
 
-  return <TrailContext.Provider value={value}>{children}</TrailContext.Provider>;
+  return (
+    <TrailContext.Provider value={value}>{children}</TrailContext.Provider>
+  );
 }

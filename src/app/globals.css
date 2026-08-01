@@ -99,6 +99,19 @@ body {
   cursor: grabbing;
 }
 
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.pb-safe {
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -108,6 +121,10 @@ body {
   .gate-stamp,
   .map-stage img {
     transition: none !important;
+    animation: none !important;
+  }
+
+  .animate-\[ticker_40s_linear_infinite\] {
     animation: none !important;
   }
 }

@@ -19,7 +19,14 @@ export function LandingStrip() {
       gsap.fromTo(
         el.querySelectorAll("[data-hero]"),
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: "power3.out", delay: 0.15 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.12,
+          ease: "power3.out",
+          delay: 0.15,
+        },
       );
     }, el);
 
@@ -30,6 +37,7 @@ export function LandingStrip() {
     <section
       id="landing"
       ref={ref}
+      data-chrome-dark
       className="relative flex min-h-[100svh] items-end overflow-hidden bg-ink"
       aria-label="Hobe Sound Farms entrance"
     >
@@ -63,7 +71,10 @@ export function LandingStrip() {
         >
           Hobe Sound Farms
         </h1>
-        <p data-hero className="mt-5 max-w-md text-lg text-bleach/80 sm:text-xl">
+        <p
+          data-hero
+          className="mt-5 max-w-md text-lg text-bleach/80 sm:text-xl"
+        >
           {site.tagline}
         </p>
         <div data-hero className="mt-8 flex flex-wrap gap-3">

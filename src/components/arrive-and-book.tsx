@@ -4,7 +4,12 @@ import { PricingCard } from "@/components/pricing-card";
 
 export function ArriveAndBook() {
   return (
-    <section id="arrive" className="bg-bleach py-20 text-ink sm:py-28" aria-label="Plan your visit">
+    <section
+      id="arrive"
+      data-chrome-light
+      className="bg-bleach py-20 text-ink sm:py-28"
+      aria-label="Plan your visit"
+    >
       <div className="px-5 sm:px-10 lg:pl-28">
         <p className="font-stamp text-[10px] text-flare">Arrive · Book</p>
         <h2 className="font-display mt-3 text-4xl uppercase tracking-tight sm:text-6xl">

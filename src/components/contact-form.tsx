@@ -38,7 +38,13 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-4 border border-ink/15 bg-bleach p-6 sm:p-8">
+    <form
+      onSubmit={handleSubmit}
+      className="relative grid gap-4 border-2 border-ink/15 bg-[#f7f3ea] p-6 shadow-[8px_8px_0_0_rgba(14,21,18,0.12)] sm:p-8"
+    >
+      <div className="pointer-events-none absolute -right-2 -top-2 rotate-6 border-2 border-flare bg-bleach px-2 py-1 font-stamp text-[9px] text-flare">
+        Filed
+      </div>
       <p className="font-stamp text-[10px] text-flare">Trail clipboard</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-1.5 text-sm">
@@ -80,9 +86,15 @@ export function ContactForm() {
         {status === "loading" ? "Sending…" : "Send message"}
       </button>
       {status === "success" && (
-        <p className="text-sm text-shade">Thanks — see you at the farm.</p>
+        <p className="text-sm text-shade" role="status" aria-live="polite">
+          Thanks — see you at the farm.
+        </p>
       )}
-      {status === "error" && <p className="text-sm text-flare-deep">{error}</p>}
+      {status === "error" && (
+        <p className="text-sm text-flare-deep" role="alert">
+          {error}
+        </p>
+      )}
     </form>
   );
 }

@@ -10,6 +10,8 @@ export const site = {
   marketHours: "Sat & Sun 9am – 2pm",
   standHours: "Mon – Fri 9am – 4pm",
   mapsUrl: "https://maps.google.com/?q=1425+SE+Bridge+Road,+Hobe+Sound,+FL+33455",
+  facebookMarket: "https://www.facebook.com/hobesoundfarmersmarket",
+  instagram: "https://www.instagram.com/hobesoundfarmersmarket/",
   logo: "/images/live/logo.png",
   hero: "/images/live/hero.png",
   map: "/images/live/map.jpg",
@@ -18,11 +20,134 @@ export const site = {
 
 export const trailChapters = [
   { id: "landing", label: "Gate", href: "#landing" },
+  { id: "market", label: "Market", href: "#market" },
   { id: "acreage", label: "Acreage", href: "#acreage" },
   { id: "residents", label: "Residents", href: "#residents" },
-  { id: "weekend", label: "Weekend", href: "#weekend" },
+  { id: "weekend", label: "Walk", href: "#weekend" },
   { id: "nights", label: "Nights", href: "#nights" },
   { id: "arrive", label: "Arrive", href: "#arrive" },
+] as const;
+
+export const marketStats = [
+  { label: "Vendors", value: 60, suffix: "+" },
+  { label: "Live Band", value: 1, suffix: "" },
+  { label: "Activities", value: 6, suffix: "+" },
+  { label: "Acres", value: 126, suffix: "" },
+] as const;
+
+export const vendorCategories = [
+  { id: "all", label: "All" },
+  { id: "produce", label: "Produce" },
+  { id: "food", label: "Hot Food" },
+  { id: "bakery", label: "Bakery" },
+  { id: "plants", label: "Plants" },
+  { id: "crafts", label: "Crafts" },
+  { id: "wellness", label: "Wellness" },
+  { id: "seafood", label: "Seafood" },
+] as const;
+
+export const vendorTypes = [
+  {
+    category: "produce",
+    tag: "Produce",
+    title: "Farm-fresh Florida",
+    desc: "Seasonal veggies, herbs, plant starters grown on-site and across the state.",
+  },
+  {
+    category: "food",
+    tag: "Hot Food",
+    title: "Food trucks & plates",
+    desc: "Fresh-made eats for the whole family — grab a cocktail while you're at it.",
+  },
+  {
+    category: "bakery",
+    tag: "Bakery",
+    title: "Breads & sweets",
+    desc: "Loaves, desserts, and high-protein low-sugar favorites (ask for Yum Yum).",
+  },
+  {
+    category: "plants",
+    tag: "Plants",
+    title: "Greenery & starters",
+    desc: "Florida-ready plants and starters — take the farm home.",
+  },
+  {
+    category: "crafts",
+    tag: "Crafts",
+    title: "Makers & trades",
+    desc: "Handmade goods from artisans and tradesmen across Florida.",
+  },
+  {
+    category: "wellness",
+    tag: "Wellness",
+    title: "Soaps, tinctures & more",
+    desc: "Hand-crafted health and beauty, household goodies, natural goods.",
+  },
+  {
+    category: "seafood",
+    tag: "Seafood",
+    title: "Local catch",
+    desc: "Fish dip legends and seafood from Florida waters.",
+  },
+] as const;
+
+export const marketWalk = [
+  {
+    id: "vendor-barns",
+    label: "Vendor Barns",
+    desc: "60+ rotating makers — produce, food, crafts, plants. Roster changes weekly.",
+    x: 35,
+    y: 35,
+    image: "/images/live/event-market.png",
+  },
+  {
+    id: "main-stage",
+    label: "Main Stage",
+    desc: "Live band every market weekend. Music under the Florida sky.",
+    x: 72,
+    y: 38,
+    image: "/images/live/offer-6.png",
+  },
+  {
+    id: "gem-jungle",
+    label: "Gem Jungle",
+    desc: "Mine for gems — dig, rinse, keep what you find.",
+    x: 62,
+    y: 48,
+    image: "/images/live/offer-3.png",
+  },
+  {
+    id: "bouquet-bunker",
+    label: "Bouquet Bunker",
+    desc: "Launch seed bombs across the field. Pure weekend chaos.",
+    x: 48,
+    y: 55,
+    image: "/images/live/offer-2.png",
+  },
+  {
+    id: "cattle-feed",
+    label: "Cattle Feed",
+    desc: "Feed hungry Brangus at the cattle feeding station.",
+    x: 55,
+    y: 72,
+    image: "/images/live/offer-4.png",
+  },
+  {
+    id: "animal-alley",
+    label: "Animal Alley",
+    desc: "Petting zoo and animal encounters — kids' favorite stop.",
+    x: 40,
+    y: 58,
+    image: "/images/live/goat.jpg",
+  },
+  {
+    id: "the-bar",
+    label: "The Bar",
+    desc: "Yes, there's a bar. Drink responsibly on a working farm.",
+    x: 68,
+    y: 45,
+    image: "/images/live/hero.png",
+  },
 ] as const;
 
 export const mapZones = [
@@ -88,7 +213,7 @@ export const mapZones = [
     desc: "Khaki Campbell ducks and shade on Florida heat days.",
     x: 22,
     y: 62,
-    image: "/images/live/tortoise.jpg",
+    image: "/images/live/turtles.jpg",
   },
   {
     id: "sunflower-barn",
@@ -125,7 +250,7 @@ export const residents = [
     blurb:
       "Angus quality meets Brahman heat tolerance — built for Florida. Locally born, grain finished, USDA processed.",
     image: "/images/live/offer-4.png",
-    alt: "Cattle on the farm",
+    alt: "Cattle feeding station at Hobe Sound Farms",
   },
   {
     slug: "guardian-donkeys",
@@ -155,13 +280,13 @@ export const residents = [
     alt: "Rooster at Hobe Sound Farms",
   },
   {
-    slug: "honey-bees",
-    species: "Honey Bees",
-    role: "Apiary · farmstand honey",
+    slug: "turkeys-quail",
+    species: "Turkeys & Quail",
+    role: "Heritage flocks · eggs & stock",
     blurb:
-      "From hive to jar — raw local honey harvested and sold at the farmstand and weekend market.",
-    image: "/images/live/quail.jpg",
-    alt: "Farm livestock and pollinators",
+      "White Holland turkeys and Coturnix quail — raised on site as part of the working farm.",
+    image: "/images/live/turkey.jpg",
+    alt: "Turkeys at Hobe Sound Farms",
   },
 ] as const;
 
@@ -212,7 +337,7 @@ export const events = [
     desc: "Live music, food trucks, full bar, mechanical bull, vendors, VIP seating.",
     image: "/images/live/merica.png",
     cta: "Get tickets",
-    href: "#arrive",
+    href: "/#arrive",
   },
   {
     id: "market",
@@ -220,8 +345,8 @@ export const events = [
     when: "Every Sat & Sun · 9am – 2pm",
     desc: "60+ vendors, farm activities, food trucks, live music — year-round.",
     image: "/images/live/event-market.png",
-    cta: "Plan your visit",
-    href: "#weekend",
+    cta: "Enter Market Mode",
+    href: "/market",
   },
   {
     id: "line-dancing",
@@ -230,7 +355,7 @@ export const events = [
     desc: "Good music, great company, all skill levels on the farm floor.",
     image: "/images/live/event-line.png",
     cta: "Join the night",
-    href: "#arrive",
+    href: "/#arrive",
   },
   {
     id: "farm-stand",
@@ -239,48 +364,100 @@ export const events = [
     desc: "Local produce, eggs, honey, and beef — weekday pickup at the stand.",
     image: "/images/live/event-stand.png",
     cta: "Shop the stand",
-    href: "#arrive",
+    href: "/#arrive",
   },
 ] as const;
 
 export const reviews = [
   {
     quote:
-      "Love Hobe Sound farmers market! So many fun activities, food trucks and vendors to keep you and the kids busy for hours.",
+      "Love Hobe Sound farmers market! So many fun activities, food trucks and vendors to keep you and the kids busy for hours. We even got to grab a cocktail.",
     author: "Emilie C",
   },
   {
     quote:
-      "One of the best farmers markets I have ever been to — clean, friendly vendors, even a petting zoo.",
+      "One of the best farmers markets I have ever been to — clean, friendly vendors, and even a petting zoo.",
     author: "Kendall S",
   },
   {
-    quote: "Took my family to tour the farm and meet the animals. One of my favorite places for fresh produce.",
+    quote:
+      "Took my family to tour the farm and meet the animals. One of my favorite places for fresh produce.",
     author: "Judy T",
+  },
+  {
+    quote:
+      "Always a great stop — food, snacks, tinctures, plants, soaps. And the fish dip is the BEST I've ever had.",
+    author: "Alicia H",
   },
 ] as const;
 
 export const tickets = [
   {
-    name: "Farm Explorer Day",
-    priceLabel: "$25",
-    amountCents: 2500,
-    features: ["Animal encounters", "Farm activities", "Kids adventure day", "Ages 2–10 focus"],
+    name: "HSFM Activity Bundle",
+    priceLabel: "$35",
+    amountCents: 3500,
+    features: ["Gem mining", "Tractor ride", "Seed bomb launch", "Market-day fun pack"],
     featured: false,
   },
   {
     name: "Farm After Dark",
     priceLabel: "$15",
     amountCents: 1500,
-    features: ["Evening admission", "Live music access", "Night-market energy", "Demo Square checkout"],
+    features: ["Evening admission", "Live music access", "Night-market energy", "Square checkout"],
     featured: true,
   },
 ] as const;
 
 export const knowBefore = [
-  "Bring reusable bags",
-  "Service animals only — no pets",
-  "Wear comfortable walking shoes",
-  "Sunscreen + hat in summer",
-  "Parking: enter and take a left",
+  { title: "Reusable bags", detail: "Bring your own — save the planet one tote at a time." },
+  { title: "Service animals only", detail: "No pets — keeps our livestock safe and calm (ADA service animals OK)." },
+  { title: "Comfortable shoes", detail: "This is a real working farm. You'll walk between barns, vendors, and activities." },
+  { title: "Sunscreen + hat", detail: "Florida sun does not negotiate. Cover up in summer." },
+  { title: "Parking", detail: "Enter the property and take a left. First-come, first-serve in front of the market." },
+  { title: "Restrooms", detail: "Porta-potties + hand sanitizer. Working agricultural farm — keep expectations honest." },
+] as const;
+
+export const experiences = [
+  {
+    id: "weddings",
+    title: "Weddings",
+    tag: "Say I do",
+    desc: "Magnolia Barn and outdoor celebrations on 126 acres.",
+    image: "/images/live/offer-5.png",
+  },
+  {
+    id: "field-trips",
+    title: "Field Trips",
+    tag: "Education",
+    desc: "Hands-on farm days for classes — animals, crops, hatchery.",
+    image: "/images/live/offer-1.png",
+  },
+  {
+    id: "birthdays",
+    title: "Birthdays & Parties",
+    tag: "Celebrate",
+    desc: "Private farm parties with animal meet-and-greets.",
+    image: "/images/live/offer-2.png",
+  },
+  {
+    id: "encounters",
+    title: "Animal Encounters",
+    tag: "Private",
+    desc: "Reserved livestock meet-and-greets Mon–Thu.",
+    image: "/images/live/goat.jpg",
+  },
+  {
+    id: "photos",
+    title: "Photo Shoots",
+    tag: "Capture",
+    desc: "Book the acreage as your backdrop.",
+    image: "/images/live/offer-6.png",
+  },
+  {
+    id: "after-dark",
+    title: "Farm After Dark",
+    tag: "Nights",
+    desc: "Live music, line dancing, night-market energy.",
+    image: "/images/live/hero.png",
+  },
 ] as const;

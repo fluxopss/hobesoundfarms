@@ -47,9 +47,18 @@ export function PricingCard({ name, priceLabel, amountCents, features, featured 
   return (
     <div
       className={`relative flex h-full flex-col border-2 p-6 sm:p-8 ${
-        featured ? "border-flare bg-ink text-bleach" : "border-ink/20 bg-bleach text-ink"
+        featured
+          ? "border-flare bg-ink text-bleach shadow-[6px_6px_0_0_rgba(255,90,60,0.45)]"
+          : "border-ink/25 bg-[#f7f3ea] text-ink shadow-[6px_6px_0_0_rgba(14,21,18,0.12)]"
       }`}
     >
+      <div
+        className={`font-stamp absolute -right-1 top-4 rotate-3 border px-2 py-1 text-[8px] ${
+          featured ? "border-flare bg-flare text-ink" : "border-ink bg-ink text-bleach"
+        }`}
+      >
+        PASS
+      </div>
       <p className="font-stamp text-[9px] text-flare">Stamped pass</p>
       <h3 className="font-display mt-2 text-2xl uppercase tracking-tight">{name}</h3>
       <p className="font-display mt-2 text-5xl">{priceLabel}</p>
@@ -68,7 +77,7 @@ export function PricingCard({ name, priceLabel, amountCents, features, featured 
             : "mt-8 bg-ink text-bleach hover:bg-flare hover:text-ink"
         }`}
       >
-        {loading ? "Redirecting…" : "Pay with Square"}
+        {loading ? "Redirecting…" : "Get pass"}
       </button>
       {error && <p className="mt-2 text-sm text-flare">{error}</p>}
     </div>

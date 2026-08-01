@@ -25,24 +25,23 @@ export function AcreageTour() {
     const stage = stageRef.current;
     if (!section || !stage) return;
 
-    const img = stage.querySelector<HTMLElement>(".map-img");
+    const img = stage.querySelector<HTMLElement>(".map-img-active");
     if (!img) return;
 
+    const end = window.innerWidth < 768 ? "+=120%" : "+=220%";
     const ctx = gsap.context(() => {
       gsap
         .timeline({
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: "+=220%",
+            end,
             pin: true,
             scrub: 1,
             onUpdate: (self) => {
-              const idx = Math.min(
-                mapZones.length - 1,
-                Math.floor(self.progress * mapZones.length),
+              setLit(
+                Math.min(mapZones.length - 1, Math.floor(self.progress * mapZones.length)),
               );
-              setLit(idx);
             },
           },
         })
@@ -52,10 +51,20 @@ export function AcreageTour() {
     return () => ctx.revert();
   }, [gateDone, reducedMotion]);
 
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActive(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active]);
+
   return (
     <section
       id="acreage"
       ref={sectionRef}
+      data-chrome-dark
       className="relative bg-ink text-bleach"
       aria-label="Interactive acreage tour"
     >
@@ -78,9 +87,15 @@ export function AcreageTour() {
             src={site.map}
             alt="Illustrated Hobe Sound Farms property map"
             fill
-            className="map-img object-cover object-center"
+            className="map-img-active hidden object-cover object-center md:block"
             sizes="100vw"
-            priority={false}
+          />
+          <Image
+            src={site.mapMobile}
+            alt="Hobe Sound Farms property map"
+            fill
+            className="map-img-active object-cover object-center md:hidden"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-ink/10" />
 
@@ -89,14 +104,16 @@ export function AcreageTour() {
               key={zone.id}
               type="button"
               onClick={() => setActive(zone)}
-              className={`absolute z-10 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 transition sm:h-5 sm:w-5 ${
+              className={`absolute z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 text-[10px] font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-flare ${
                 lit === i || active?.id === zone.id
-                  ? "scale-125 border-flare bg-flare shadow-[0_0_20px_rgba(255,90,60,0.7)]"
-                  : "border-bleach/80 bg-bleach/30 hover:bg-flare"
+                  ? "scale-110 border-flare bg-flare text-ink shadow-[0_0_20px_rgba(255,90,60,0.7)]"
+                  : "border-bleach/80 bg-bleach/30 text-bleach hover:bg-flare hover:text-ink"
               }`}
               style={{ left: `${zone.x}%`, top: `${zone.y}%` }}
               aria-label={zone.label}
-            />
+            >
+              {i + 1}
+            </button>
           ))}
         </div>
 
@@ -109,6 +126,9 @@ export function AcreageTour() {
         {active && (
           <motion.div
             className="fixed inset-0 z-[60] flex items-end justify-center bg-ink/70 p-4 sm:items-center"
+            role="dialog"
+            aria-modal="true"
+            aria-label={active.label}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -122,7 +142,13 @@ export function AcreageTour() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative min-h-[220px]">
-                <Image src={active.image} alt="" fill className="object-cover" sizes="400px" />
+                <Image
+                  src={active.image}
+                  alt={active.label}
+                  fill
+                  className="object-cover"
+                  sizes="400px"
+                />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8">
                 <p className="font-stamp text-[10px] text-flare">Zone</p>
