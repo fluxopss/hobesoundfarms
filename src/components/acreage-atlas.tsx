@@ -6,7 +6,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatePresence, motion } from "framer-motion";
-import { mapZones, modes, site } from "@/lib/content";
+import { mapZones, site } from "@/lib/content";
 import { useAcreage } from "@/components/acreage-provider";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -34,14 +34,19 @@ export function AcreageAtlas() {
   const [lit, setLit] = useState(0);
 
   useEffect(() => {
-    if (!entered || reducedMotion) return;
+    if (!entered || reducedMotion) {
+      ScrollTrigger.refresh();
+      return;
+    }
+
     const section = sectionRef.current;
     const stage = stageRef.current;
     if (!section || !stage) return;
-    const img = stage.querySelector<HTMLElement>(".map-img-active");
-    if (!img) return;
 
-    const end = window.innerWidth < 768 ? "+=160%" : "+=260%";
+    const imgs = stage.querySelectorAll<HTMLElement>(".map-img-active");
+    if (!imgs.length) return;
+
+    const end = window.innerWidth < 768 ? "+=160%" : "+=240%";
     const ctx = gsap.context(() => {
       gsap
         .timeline({
@@ -51,6 +56,7 @@ export function AcreageAtlas() {
             end,
             pin: true,
             scrub: 1,
+            invalidateOnRefresh: true,
             onUpdate: (self) => {
               setLit(
                 Math.min(
@@ -62,11 +68,13 @@ export function AcreageAtlas() {
           },
         })
         .fromTo(
-          img,
+          imgs,
           { scale: 1.04, xPercent: 0, yPercent: 0 },
-          { scale: 1.38, xPercent: -10, yPercent: -7 },
+          { scale: 1.32, xPercent: -8, yPercent: -5 },
         );
     }, section);
+
+    requestAnimationFrame(() => ScrollTrigger.refresh());
 
     return () => ctx.revert();
   }, [entered, reducedMotion]);
@@ -89,29 +97,17 @@ export function AcreageAtlas() {
       aria-label="Acreage Atlas interactive map"
     >
       <div className="flex min-h-[100svh] flex-col justify-between px-5 py-24 sm:px-10 lg:px-16">
-        <div className="relative z-10 flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-xl">
-            <p className="font-atlas text-[10px] text-citrus">
-              Atlas · 126 acres
-            </p>
-            <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-6xl">
-              Discover the property
-            </h2>
-            <p className="mt-3 max-w-md text-shell/65">
-              Scrub to explore. Tap hotspots — or enter a mode world.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {modes.map((mode) => (
-              <Link
-                key={mode.id}
-                href={mode.href}
-                className="rounded-full border border-shell/25 bg-shell/5 px-4 py-2.5 text-[11px] font-medium text-shell/85 backdrop-blur-sm transition hover:border-citrus hover:bg-citrus hover:text-soil"
-              >
-                {mode.label}
-              </Link>
-            ))}
-          </div>
+        <div className="relative z-10 max-w-xl">
+          <p className="font-atlas text-[10px] text-citrus">
+            Atlas · Interactive map · 126 acres
+          </p>
+          <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-6xl">
+            Walk the property
+          </h2>
+          <p className="mt-3 max-w-md text-shell/65">
+            Scroll to scrub the map. Tap a hotspot to open a zone — then jump
+            into its world.
+          </p>
         </div>
 
         <div
@@ -124,7 +120,6 @@ export function AcreageAtlas() {
             fill
             className="map-img-active hidden object-cover object-center md:block"
             sizes="100vw"
-            priority
           />
           <Image
             src={site.mapMobile}
@@ -132,7 +127,6 @@ export function AcreageAtlas() {
             fill
             className="map-img-active object-cover object-center md:hidden"
             sizes="100vw"
-            priority
           />
           <div className="absolute inset-0 bg-soil/10" />
           <div className="vignette absolute inset-0" />
@@ -155,9 +149,25 @@ export function AcreageAtlas() {
           ))}
         </div>
 
-        <p className="font-atlas relative z-10 mt-6 text-[10px] text-shell/45">
-          {mapZones[lit]?.label ?? "Explore"} · {lit + 1}/{mapZones.length}
-        </p>
+        <div className="relative z-10 mt-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-atlas text-[10px] text-citrus">
+              Zone {lit + 1}/{mapZones.length}
+            </p>
+            <p className="font-display text-2xl tracking-tight">
+              {mapZones[lit]?.label}
+            </p>
+            <p className="mt-1 max-w-md text-sm text-shell/60">
+              {mapZones[lit]?.desc}
+            </p>
+          </div>
+          <Link
+            href={zoneMode[mapZones[lit]?.id ?? ""] ?? "/visit"}
+            className="rounded-full border border-shell/30 px-5 py-2.5 text-sm font-semibold transition hover:border-citrus hover:bg-citrus hover:text-soil"
+          >
+            Enter this world →
+          </Link>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -173,7 +183,6 @@ export function AcreageAtlas() {
             onClick={() => setActive(null)}
           >
             <motion.article
-              layoutId={`zone-${active.id}`}
               initial={{ y: 48, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 32, opacity: 0 }}

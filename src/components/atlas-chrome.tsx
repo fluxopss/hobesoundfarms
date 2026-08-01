@@ -7,6 +7,15 @@ import { usePathname } from "next/navigation";
 import { modes, site } from "@/lib/content";
 import { useAcreage } from "@/components/acreage-provider";
 
+const nav = [
+  { href: "/", label: "Atlas", match: (p: string) => p === "/" },
+  ...modes.map((m) => ({
+    href: m.href,
+    label: m.label,
+    match: (p: string) => p === m.href,
+  })),
+];
+
 export function AtlasChrome() {
   const pathname = usePathname();
   const { entered } = useAcreage();
@@ -21,7 +30,8 @@ export function AtlasChrome() {
         pathname === "/market" ||
         pathname === "/animals" ||
         pathname === "/events" ||
-        pathname === "/experiences";
+        pathname === "/experiences" ||
+        pathname === "/visit";
       document.querySelectorAll("[data-chrome-dark]").forEach((el) => {
         const r = el.getBoundingClientRect();
         if (r.top < 80 && r.bottom > 80) dark = true;
@@ -52,7 +62,7 @@ export function AtlasChrome() {
         className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${bar}`}
       >
         <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-3 px-4 py-3 sm:px-8">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/#hub" className="flex items-center gap-3">
             <Image
               src={site.logo}
               alt={site.name}
@@ -66,21 +76,23 @@ export function AtlasChrome() {
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex" aria-label="Modes">
-            {modes.map((mode) => {
-              const active = pathname === mode.href;
+            {nav.map((item) => {
+              const active = item.match(pathname);
               return (
                 <Link
-                  key={mode.id}
-                  href={mode.href}
+                  key={item.href}
+                  href={item.href === "/" ? "/#hub" : item.href}
                   className={`rounded-full px-3.5 py-2 text-[11px] font-medium tracking-wide transition ${
                     active
-                      ? "bg-citrus text-soil"
+                      ? onDark
+                        ? "bg-shell/15 text-shell ring-1 ring-citrus/70"
+                        : "bg-soil text-shell"
                       : onDark
                         ? "text-shell/70 hover:bg-shell/10 hover:text-shell"
                         : "text-mute hover:bg-soil/5 hover:text-soil"
                   }`}
                 >
-                  {mode.label}
+                  {item.label}
                 </Link>
               );
             })}
@@ -95,14 +107,13 @@ export function AtlasChrome() {
         </div>
       </header>
 
-      {/* Mobile atlas dock */}
       <nav
         className="fixed inset-x-0 bottom-0 z-50 border-t border-shell/10 bg-soil/95 px-2 py-2 backdrop-blur-xl pb-safe md:hidden"
         aria-label="Mode dock"
       >
         <div className="flex items-stretch justify-around gap-1">
           <Link
-            href="/"
+            href="/#hub"
             className={`flex flex-1 flex-col items-center rounded-xl px-1 py-2 text-[9px] uppercase tracking-wider ${
               pathname === "/" ? "bg-citrus/20 text-citrus" : "text-shell/55"
             }`}
@@ -125,9 +136,7 @@ export function AtlasChrome() {
           <Link
             href="/visit"
             className={`flex flex-1 flex-col items-center rounded-xl px-1 py-2 text-[9px] uppercase tracking-wider ${
-              pathname === "/visit"
-                ? "bg-citrus text-soil"
-                : "text-shell/55"
+              pathname === "/visit" ? "bg-citrus text-soil" : "text-shell/55"
             }`}
           >
             Visit
@@ -138,5 +147,4 @@ export function AtlasChrome() {
   );
 }
 
-/** Compat */
 export { AtlasChrome as TrailChrome };

@@ -1,26 +1,33 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { useAcreage } from "@/components/acreage-provider";
 import { site } from "@/lib/content";
 
 export function Prologue() {
-  const { entered, setEntered, reducedMotion } = useAcreage();
+  const { entered, setEntered, reducedMotion, scrollTo, lenis } = useAcreage();
   const rootRef = useRef<HTMLDivElement>(null);
   const enterRef = useRef<HTMLButtonElement>(null);
+  const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
-    if (reducedMotion && !entered) setEntered(true);
-  }, [reducedMotion, entered, setEntered]);
+    if (reducedMotion && !entered) {
+      setEntered(true);
+      requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        scrollTo("#hub");
+      });
+    }
+  }, [reducedMotion, entered, setEntered, scrollTo]);
 
   useEffect(() => {
-    if (entered || reducedMotion) return;
+    if (entered || reducedMotion || exiting) return;
     enterRef.current?.focus();
 
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" || e.key === "Enter") setEntered(true);
+      if (e.key === "Escape") enter();
     };
     window.addEventListener("keydown", onKey);
 
@@ -51,7 +58,33 @@ export function Prologue() {
       ctx.revert();
       window.removeEventListener("keydown", onKey);
     };
-  }, [entered, reducedMotion, setEntered]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- enter is stable via refs
+  }, [entered, reducedMotion, exiting]);
+
+  function enter() {
+    if (exiting || entered) return;
+    setExiting(true);
+    const root = rootRef.current;
+
+    const finish = () => {
+      setEntered(true);
+      if (lenis) lenis.scrollTo(0, { immediate: true });
+      else window.scrollTo(0, 0);
+      requestAnimationFrame(() => scrollTo("#hub"));
+    };
+
+    if (!root || reducedMotion) {
+      finish();
+      return;
+    }
+
+    gsap.to(root, {
+      opacity: 0,
+      duration: 0.55,
+      ease: "power2.inOut",
+      onComplete: finish,
+    });
+  }
 
   if (entered) return null;
 
@@ -98,17 +131,17 @@ export function Prologue() {
         <button
           ref={enterRef}
           type="button"
-          onClick={() => setEntered(true)}
+          onClick={enter}
           className="mt-10 rounded-full bg-citrus px-8 py-4 text-sm font-bold tracking-wide text-soil transition hover:bg-citrus-deep hover:text-shell"
         >
           Enter the acreage
         </button>
         <button
           type="button"
-          onClick={() => setEntered(true)}
+          onClick={enter}
           className="font-atlas mt-4 text-[10px] text-shell/40 transition hover:text-shell/70"
         >
-          Skip
+          Skip intro
         </button>
       </div>
     </div>

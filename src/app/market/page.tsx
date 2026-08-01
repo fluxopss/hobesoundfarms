@@ -29,7 +29,7 @@ export default function MarketPage() {
         <main className="pb-20 md:pb-0">
           <section
             data-chrome-dark
-            className="relative flex min-h-[90svh] items-end overflow-hidden bg-soil pt-24 text-shell"
+            className="relative flex min-h-[88svh] items-end overflow-hidden bg-soil pt-24 text-shell"
           >
             <Image
               src="/images/live/event-market.png"
@@ -65,6 +65,12 @@ export default function MarketPage() {
                   className="rounded-full border border-shell/40 px-6 py-3.5 text-sm font-semibold text-shell"
                 >
                   Plan a visit
+                </Link>
+                <Link
+                  href="/#hub"
+                  className="rounded-full px-4 py-3.5 text-sm text-shell/60 underline-offset-4 hover:text-shell hover:underline"
+                >
+                  ← Back to Atlas
                 </Link>
               </div>
             </div>

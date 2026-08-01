@@ -167,7 +167,9 @@ export function MarketSimulator({ compact = false }: { compact?: boolean }) {
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8">
-                <p className="font-atlas text-[10px] text-citrus">Market stop</p>
+                <p className="font-atlas text-[10px] text-citrus">
+                  Market stop
+                </p>
                 <h3 className="font-display mt-2 text-3xl tracking-tight">
                   {active.label}
                 </h3>

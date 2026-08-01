@@ -15,13 +15,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const ENTERED_KEY = "hsf-acreage-v2";
+
 type AcreageContextValue = {
   reducedMotion: boolean;
   entered: boolean;
   setEntered: (v: boolean) => void;
-  /** @deprecated use entered */
   gateDone: boolean;
-  /** @deprecated use setEntered */
   setGateDone: (v: boolean) => void;
   activeMode: string;
   setActiveMode: (id: string) => void;
@@ -37,7 +37,6 @@ export function useAcreage() {
   return ctx;
 }
 
-/** Compat alias while components migrate */
 export const useTrail = useAcreage;
 
 export function AcreageProvider({ children }: { children: ReactNode }) {
@@ -52,9 +51,9 @@ export function AcreageProvider({ children }: { children: ReactNode }) {
     apply();
     mq.addEventListener("change", apply);
 
-    const seen = sessionStorage.getItem("hsf-acreage-entered") === "1";
-    const legacy = sessionStorage.getItem("hsf-gate-done") === "1";
-    if (seen || legacy || mq.matches) setEnteredState(true);
+    // Fresh key so legacy gate/market sessions don't skip the new hub intro
+    const seen = sessionStorage.getItem(ENTERED_KEY) === "1";
+    if (seen || mq.matches) setEnteredState(true);
 
     return () => mq.removeEventListener("change", apply);
   }, []);
@@ -94,6 +93,7 @@ export function AcreageProvider({ children }: { children: ReactNode }) {
       } else {
         el.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
       }
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     },
     [lenis, reducedMotion],
   );
@@ -101,8 +101,8 @@ export function AcreageProvider({ children }: { children: ReactNode }) {
   const setEntered = useCallback((v: boolean) => {
     setEnteredState(v);
     if (v) {
-      sessionStorage.setItem("hsf-acreage-entered", "1");
-      sessionStorage.setItem("hsf-gate-done", "1");
+      sessionStorage.setItem(ENTERED_KEY, "1");
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     }
   }, []);
 
@@ -126,5 +126,4 @@ export function AcreageProvider({ children }: { children: ReactNode }) {
   );
 }
 
-/** Compat export */
 export const TrailProvider = AcreageProvider;

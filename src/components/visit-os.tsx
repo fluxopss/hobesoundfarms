@@ -17,7 +17,11 @@ function useVisitStatus() {
     if ((day === 6 || day === 0) && hour >= 9 && hour < 14) {
       setStatus("Market open now · until 2pm");
     } else if (day === 6 || day === 0) {
-      setStatus(hour < 9 ? "Market opens today at 9am" : "Market closed · see you next weekend");
+      setStatus(
+        hour < 9
+          ? "Market opens today at 9am"
+          : "Market closed · see you next weekend",
+      );
     } else if (day >= 1 && day <= 5 && hour >= 9 && hour < 16) {
       setStatus("Farm stand open · until 4pm");
     } else {
@@ -27,11 +31,7 @@ function useVisitStatus() {
   return status;
 }
 
-export function VisitOS({
-  defaultMessage = "",
-}: {
-  defaultMessage?: string;
-}) {
+export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
   const status = useVisitStatus();
 
   return (
@@ -71,13 +71,23 @@ export function VisitOS({
               <p className="font-atlas text-[10px] text-citrus">Hours</p>
               <dl className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div className="border border-soil/10 bg-white/60 p-5">
-                  <dt className="font-atlas text-[9px] text-mute">Farmers Market</dt>
-                  <dd className="font-display mt-2 text-2xl">{site.marketHours}</dd>
-                  <dd className="mt-1 text-sm text-mute">Sat & Sun · year-round</dd>
+                  <dt className="font-atlas text-[9px] text-mute">
+                    Farmers Market
+                  </dt>
+                  <dd className="font-display mt-2 text-2xl">
+                    {site.marketHours}
+                  </dd>
+                  <dd className="mt-1 text-sm text-mute">
+                    Sat & Sun · year-round
+                  </dd>
                 </div>
                 <div className="border border-soil/10 bg-white/60 p-5">
-                  <dt className="font-atlas text-[9px] text-mute">Farm Stand</dt>
-                  <dd className="font-display mt-2 text-2xl">{site.standHours}</dd>
+                  <dt className="font-atlas text-[9px] text-mute">
+                    Farm Stand
+                  </dt>
+                  <dd className="font-display mt-2 text-2xl">
+                    {site.standHours}
+                  </dd>
                   <dd className="mt-1 text-sm text-mute">Weekday pickup</dd>
                 </div>
               </dl>
@@ -149,7 +159,9 @@ export function VisitOS({
               <ContactForm defaultMessage={defaultMessage} />
             </Reveal>
             <Reveal delay={0.1}>
-              <p className="font-atlas text-[10px] text-citrus">Know before you go</p>
+              <p className="font-atlas text-[10px] text-citrus">
+                Know before you go
+              </p>
               <ul className="mt-4 space-y-3">
                 {knowBefore.map((item) => (
                   <li

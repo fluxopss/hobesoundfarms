@@ -77,7 +77,9 @@ export default function AnimalsPage() {
             </AnimatePresence>
 
             <div className="relative z-10 flex min-h-[100svh] flex-col justify-end px-5 py-16 sm:px-10 lg:px-16">
-              <p className="font-atlas text-[10px] text-lagoon">{current.role}</p>
+              <p className="font-atlas text-[10px] text-lagoon">
+                {current.role}
+              </p>
               <h2 className="font-display mt-3 max-w-[14ch] text-[clamp(2.5rem,8vw,5rem)] leading-[0.9] tracking-tight">
                 {current.species}
               </h2>
@@ -157,12 +159,20 @@ export default function AnimalsPage() {
             <h2 className="font-display mt-6 text-3xl tracking-tight text-soil sm:text-5xl">
               Book a private encounter
             </h2>
-            <Link
-              href="/visit?experience=Animal%20Encounters"
-              className="mt-8 inline-flex rounded-full bg-lagoon px-7 py-3.5 text-sm font-bold text-shell"
-            >
-              Inquire →
-            </Link>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link
+                href="/visit?experience=Animal%20Encounters"
+                className="inline-flex rounded-full bg-lagoon px-7 py-3.5 text-sm font-bold text-shell"
+              >
+                Inquire →
+              </Link>
+              <Link
+                href="/#hub"
+                className="inline-flex rounded-full border border-soil/20 px-7 py-3.5 text-sm font-semibold"
+              >
+                ← Atlas
+              </Link>
+            </div>
           </section>
         </main>
       </PageTransition>
