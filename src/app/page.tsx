@@ -1,29 +1,25 @@
-import { SiteNav } from "@/components/site-nav";
+import { GateEntrance } from "@/components/gate-entrance";
+import { TrailHUD } from "@/components/trail-hud";
+import { LandingStrip } from "@/components/landing-strip";
+import { AcreageTour } from "@/components/acreage-tour";
+import { ResidentTakeovers } from "@/components/resident-takeovers";
+import { WeekendArcade } from "@/components/weekend-arcade";
+import { EventBillboards } from "@/components/event-billboards";
+import { ArriveAndBook } from "@/components/arrive-and-book";
 import { SiteFooter } from "@/components/site-footer";
-import { Hero } from "@/components/hero";
-import { IntentStrip } from "@/components/intent-strip";
-import { AnimalsStrip } from "@/components/animals-strip";
-import { EventsRail } from "@/components/events-rail";
-import { FarmMap } from "@/components/farm-map";
-import { MarketSection } from "@/components/market-section";
-import { ExperiencesPanels } from "@/components/experiences-panels";
-import { TicketCards } from "@/components/ticket-cards";
-import { ContactSection } from "@/components/contact-section";
 
 export default function HomePage() {
   return (
     <>
-      <SiteNav />
+      <GateEntrance />
+      <TrailHUD />
       <main>
-        <Hero />
-        <IntentStrip />
-        <AnimalsStrip />
-        <EventsRail limit={3} />
-        <FarmMap />
-        <MarketSection />
-        <ExperiencesPanels />
-        <TicketCards />
-        <ContactSection />
+        <LandingStrip />
+        <AcreageTour />
+        <ResidentTakeovers />
+        <WeekendArcade />
+        <EventBillboards />
+        <ArriveAndBook />
       </main>
       <SiteFooter />
     </>

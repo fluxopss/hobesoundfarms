@@ -17,7 +17,7 @@ export function ContactForm() {
       email: String(form.get("email") ?? ""),
       phone: String(form.get("phone") ?? ""),
       message: String(form.get("message") ?? ""),
-      source: "hobesoundfarms-contact",
+      source: "hobesoundfarms-trail",
     };
 
     const response = await fetch("/api/contact", {
@@ -38,56 +38,51 @@ export function ContactForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="grid gap-4 border border-ink/10 bg-bg p-6 sm:p-8"
-    >
+    <form onSubmit={handleSubmit} className="grid gap-4 border border-ink/15 bg-bleach p-6 sm:p-8">
+      <p className="font-stamp text-[10px] text-flare">Trail clipboard</p>
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="grid gap-1.5 text-sm">
-          <span className="font-medium text-ink">Full name</span>
+          <span className="font-medium">Name</span>
           <input
             required
             name="name"
-            className="border border-ink/15 bg-bg-chalk px-4 py-3 outline-none focus:border-sky"
+            className="border border-ink/20 bg-white px-4 py-3 outline-none focus:border-flare"
           />
         </label>
         <label className="grid gap-1.5 text-sm">
-          <span className="font-medium text-ink">Email</span>
+          <span className="font-medium">Email</span>
           <input
             required
             type="email"
             name="email"
-            className="border border-ink/15 bg-bg-chalk px-4 py-3 outline-none focus:border-sky"
+            className="border border-ink/20 bg-white px-4 py-3 outline-none focus:border-flare"
           />
         </label>
       </div>
       <label className="grid gap-1.5 text-sm">
-        <span className="font-medium text-ink">Phone (optional)</span>
-        <input
-          name="phone"
-          className="border border-ink/15 bg-bg-chalk px-4 py-3 outline-none focus:border-sky"
-        />
+        <span className="font-medium">Phone</span>
+        <input name="phone" className="border border-ink/20 bg-white px-4 py-3 outline-none focus:border-flare" />
       </label>
       <label className="grid gap-1.5 text-sm">
-        <span className="font-medium text-ink">How can we help?</span>
+        <span className="font-medium">What are you planning?</span>
         <textarea
           name="message"
           rows={4}
-          placeholder="Market visit, wedding inquiry, field trip, tickets…"
-          className="border border-ink/15 bg-bg-chalk px-4 py-3 outline-none focus:border-sky"
+          placeholder="Market visit, wedding, field trip, animal encounter, tickets…"
+          className="border border-ink/20 bg-white px-4 py-3 outline-none focus:border-flare"
         />
       </label>
       <button
         type="submit"
         disabled={status === "loading"}
-        className="rounded-full bg-mangrove px-5 py-3.5 font-medium text-bg-chalk transition hover:bg-sky-deep disabled:opacity-60"
+        className="rounded-full bg-ink px-5 py-3.5 font-semibold text-bleach transition hover:bg-flare hover:text-ink disabled:opacity-60"
       >
         {status === "loading" ? "Sending…" : "Send message"}
       </button>
       {status === "success" && (
-        <p className="text-sm text-sky-deep">Thanks — we will be in touch shortly.</p>
+        <p className="text-sm text-shade">Thanks — see you at the farm.</p>
       )}
-      {status === "error" && <p className="text-sm text-red-700">{error}</p>}
+      {status === "error" && <p className="text-sm text-flare-deep">{error}</p>}
     </form>
   );
 }

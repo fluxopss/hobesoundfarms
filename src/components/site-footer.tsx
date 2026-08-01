@@ -1,60 +1,57 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-ink/10 bg-mangrove text-bg-chalk">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="border-t border-bleach/10 bg-ink text-bleach">
+      <div className="mx-auto grid max-w-[1600px] gap-10 px-5 py-14 sm:px-10 md:grid-cols-[1.4fr_1fr_1fr] lg:pl-28">
         <div>
-          <p className="font-display text-3xl tracking-tight">{site.name}</p>
-          <p className="mt-3 max-w-md text-sm leading-relaxed text-bg-chalk/75">{site.blurb}</p>
+          <div className="flex items-center gap-3">
+            <Image src={site.logo} alt="" width={48} height={48} className="h-12 w-12 object-contain" />
+            <p className="font-display text-2xl uppercase tracking-tight">{site.name}</p>
+          </div>
+          <p className="mt-4 max-w-md text-sm text-bleach/65">{site.blurb}</p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bg-chalk/55">Visit</p>
-          <p className="mt-3 text-sm leading-relaxed">{site.address}</p>
-          <a href={site.phoneHref} className="mt-2 block text-sm text-citrus hover:underline">
+          <p className="font-stamp text-[9px] text-bleach/40">Visit</p>
+          <p className="mt-3 text-sm">{site.address}</p>
+          <a href={site.phoneHref} className="mt-2 block text-sm text-flare hover:underline">
             {site.phone}
           </a>
-          <p className="mt-4 text-sm text-bg-chalk/70">Market: {site.marketHours}</p>
-          <p className="text-sm text-bg-chalk/70">Farm Stand: {site.standHours}</p>
         </div>
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-bg-chalk/55">Explore</p>
+          <p className="font-stamp text-[9px] text-bleach/40">Trail</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
-              <Link href="/events" className="hover:text-citrus">
-                Events
+              <Link href="/#acreage" className="hover:text-flare">
+                Acreage
               </Link>
             </li>
             <li>
-              <Link href="/animals" className="hover:text-citrus">
-                Animals
+              <Link href="/animals" className="hover:text-flare">
+                Residents
               </Link>
             </li>
             <li>
-              <Link href="/experiences" className="hover:text-citrus">
+              <Link href="/events" className="hover:text-flare">
+                Nights
+              </Link>
+            </li>
+            <li>
+              <Link href="/experiences" className="hover:text-flare">
                 Experiences
-              </Link>
-            </li>
-            <li>
-              <Link href="/#contact" className="hover:text-citrus">
-                Plan Your Visit
               </Link>
             </li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-bg-chalk/10 px-5 py-5 text-center text-xs text-bg-chalk/50 sm:px-8">
+      <div className="border-t border-bleach/10 px-5 py-5 text-center text-xs text-bleach/40 sm:px-10">
         Crafted by{" "}
-        <a
-          href="https://fluxlab.agency"
-          className="underline decoration-bg-chalk/30 underline-offset-2 hover:text-bg-chalk"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://fluxlab.agency" className="underline underline-offset-2 hover:text-bleach" target="_blank" rel="noreferrer">
           Flux Labs
         </a>{" "}
-        · Demo pitch build for {site.name}
+        · OPEN THE GATE pitch for {site.name}
       </div>
     </footer>
   );

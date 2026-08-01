@@ -46,34 +46,31 @@ export function PricingCard({ name, priceLabel, amountCents, features, featured 
 
   return (
     <div
-      className={`flex h-full flex-col border p-6 sm:p-8 ${
-        featured
-          ? "border-mangrove bg-mangrove text-bg-chalk"
-          : "border-ink/10 bg-bg-chalk text-ink"
+      className={`relative flex h-full flex-col border-2 p-6 sm:p-8 ${
+        featured ? "border-flare bg-ink text-bleach" : "border-ink/20 bg-bleach text-ink"
       }`}
     >
-      <h3 className="font-display text-2xl">{name}</h3>
-      <p className="mt-2 font-display text-4xl">{priceLabel}</p>
-      <ul className={`mt-6 space-y-2 text-sm ${featured ? "text-bg-chalk/80" : "text-ink-muted"}`}>
+      <p className="font-stamp text-[9px] text-flare">Stamped pass</p>
+      <h3 className="font-display mt-2 text-2xl uppercase tracking-tight">{name}</h3>
+      <p className="font-display mt-2 text-5xl">{priceLabel}</p>
+      <ul className={`mt-6 space-y-2 text-sm ${featured ? "text-bleach/75" : "text-mute"}`}>
         {features.map((feature) => (
-          <li key={feature}>• {feature}</li>
+          <li key={feature}>— {feature}</li>
         ))}
       </ul>
       <button
         type="button"
         onClick={handleCheckout}
         disabled={loading}
-        className={`mt-auto rounded-full px-4 py-3 font-medium transition disabled:opacity-60 ${
+        className={`mt-auto rounded-full px-4 py-3 font-semibold transition disabled:opacity-60 ${
           featured
-            ? "mt-8 bg-citrus text-mangrove hover:bg-citrus-deep hover:text-bg-chalk"
-            : "mt-8 bg-mangrove text-bg-chalk hover:bg-sky-deep"
+            ? "mt-8 bg-flare text-ink hover:bg-flare-deep hover:text-bleach"
+            : "mt-8 bg-ink text-bleach hover:bg-flare hover:text-ink"
         }`}
       >
         {loading ? "Redirecting…" : "Pay with Square"}
       </button>
-      {error && (
-        <p className={`mt-2 text-sm ${featured ? "text-citrus" : "text-red-700"}`}>{error}</p>
-      )}
+      {error && <p className="mt-2 text-sm text-flare">{error}</p>}
     </div>
   );
 }

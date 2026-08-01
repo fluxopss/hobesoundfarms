@@ -1,69 +1,53 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { animals } from "@/lib/content";
-import { SiteNav } from "@/components/site-nav";
+import Link from "next/link";
+import { residents, site } from "@/lib/content";
 import { SiteFooter } from "@/components/site-footer";
-import { AnimalsStrip } from "@/components/animals-strip";
-import { ContactSection } from "@/components/contact-section";
-import { Reveal } from "@/components/reveal";
+import { ArriveAndBook } from "@/components/arrive-and-book";
 
 export const metadata: Metadata = {
-  title: "Animals",
+  title: "Livestock",
   description:
-    "Meet the residents of Hobe Sound Farms — goats, deer, donkeys, giant chickens, bees, and butterflies.",
+    "Meet the livestock of Hobe Sound Farms — Brangus cattle, goats, hatchery chicks, Indio Gigante, bees, and more.",
 };
 
 export default function AnimalsPage() {
   return (
     <>
-      <SiteNav />
-      <main className="pt-24">
-        <div className="mx-auto max-w-7xl px-5 pb-8 sm:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky">Livestock & wildlife</p>
-          <h1 className="mt-3 font-display text-4xl tracking-tight text-ink sm:text-6xl">
-            Meet our residents
-          </h1>
-          <p className="mt-4 max-w-2xl text-ink-muted">
-            Character stories below are demo-quality until the farm shares official names and photos —
-            the encounters are real.
-          </p>
+      <header className="border-b border-ink/10 bg-ink px-5 py-6 text-bleach sm:px-10">
+        <Link href="/" className="font-stamp text-[10px] text-flare hover:underline">
+          ← Back to trail
+        </Link>
+        <div className="mt-6 flex items-center gap-4">
+          <Image src={site.logo} alt="" width={48} height={48} className="h-12 w-12 object-contain" />
+          <h1 className="font-display text-4xl uppercase tracking-tight sm:text-6xl">Livestock</h1>
         </div>
+        <p className="mt-4 max-w-2xl text-bleach/70">
+          A working commercial farm — beef, eggs, honey, breeding stock, and the Hatchery for families and classrooms.
+        </p>
+      </header>
 
-        <AnimalsStrip showCta={false} />
-
-        <section className="bg-bg py-20 sm:py-24">
-          <div className="mx-auto max-w-7xl space-y-16 px-5 sm:px-8">
-            {animals.map((animal, i) => (
-              <Reveal key={animal.slug}>
-                <article
-                  className={`grid items-center gap-8 lg:grid-cols-2 ${
-                    i % 2 === 1 ? "lg:[&_.animal-media]:order-2" : ""
-                  }`}
-                >
-                  <div className="animal-media relative aspect-[5/4] overflow-hidden">
-                    <Image
-                      src={animal.image}
-                      alt={animal.alt}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width:1024px) 100vw, 50vw"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-sky">
-                      {animal.species}
-                    </p>
-                    <h2 className="mt-2 font-display text-3xl text-ink sm:text-4xl">{animal.name}</h2>
-                    <p className="mt-4 text-lg text-ink-muted">{animal.blurb}</p>
-                    <p className="mt-4 leading-relaxed text-ink-muted">{animal.story}</p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+      <main>
+        <section className="space-y-16 bg-bleach px-5 py-16 sm:px-10">
+          {residents.map((animal, i) => (
+            <article
+              key={animal.slug}
+              className={`grid items-center gap-8 lg:grid-cols-2 ${i % 2 === 1 ? "lg:[&_.media]:order-2" : ""}`}
+            >
+              <div className="media relative aspect-[5/4] overflow-hidden">
+                <Image src={animal.image} alt={animal.alt} fill className="object-cover" sizes="50vw" />
+              </div>
+              <div>
+                <p className="font-stamp text-[10px] text-flare">{animal.role}</p>
+                <h2 className="font-display mt-2 text-3xl uppercase tracking-tight sm:text-4xl">
+                  {animal.species}
+                </h2>
+                <p className="mt-4 text-lg text-mute">{animal.blurb}</p>
+              </div>
+            </article>
+          ))}
         </section>
-
-        <ContactSection />
+        <ArriveAndBook />
       </main>
       <SiteFooter />
     </>
