@@ -2,13 +2,14 @@ export const site = {
   name: "Hobe Sound Farms",
   tagline: "Enter the acreage.",
   blurb:
-    "A 126-acre working farm in Hobe Sound — weekend market, livestock, tractor rides, Gem Jungle, live music, and celebrations under the South Florida sky.",
+    "South Florida’s premier farm destination — a 126-acre working farm just off I-95 and Bridge Road, with a year-round farmers market, livestock, activities, live music, and celebrations.",
   address: "1425 SE Bridge Road, Hobe Sound, FL 33455",
   phone: "(844) 462-3763",
   phoneHref: "tel:+18444623763",
   email: "info@hobesoundfarms.com",
   marketHours: "Sat & Sun 9am – 2pm",
   standHours: "Mon – Fri 9am – 4pm",
+  locationNote: "Just off I-95 and Bridge Road, Hobe Sound, FL",
   mapsUrl:
     "https://maps.google.com/?q=1425+SE+Bridge+Road,+Hobe+Sound,+FL+33455",
   facebookMarket: "https://www.facebook.com/hobesoundfarmersmarket",
@@ -25,7 +26,7 @@ export const modes = [
     label: "Market",
     short: "Market",
     href: "/market",
-    desc: "Weekend ritual — vendors, music, activities",
+    desc: "60+ vendors, activities, live music",
     accent: "citrus",
   },
   {
@@ -33,7 +34,7 @@ export const modes = [
     label: "Residents",
     short: "Herd",
     href: "/animals",
-    desc: "Livestock of a working Florida farm",
+    desc: "Meet the livestock of a working farm",
     accent: "lagoon",
   },
   {
@@ -41,7 +42,7 @@ export const modes = [
     label: "Nights",
     short: "Nights",
     href: "/events",
-    desc: "After-dark nights, sendoffs, line dancing",
+    desc: "Farm After Dark, sendoffs, line dancing",
     accent: "canopy",
   },
   {
@@ -49,15 +50,295 @@ export const modes = [
     label: "Experiences",
     short: "Book",
     href: "/experiences",
-    desc: "Weddings, field trips, encounters, photos",
+    desc: "Weddings, field trips, parties, encounters",
     accent: "shell",
   },
 ] as const;
 
-export const trailChapters = [
-  { id: "atlas", label: "Atlas", href: "#atlas" },
-  { id: "arrive", label: "Visit", href: "/visit" },
+/** Matches “I would like to…” on hobesoundfarms.com */
+export const intents = [
+  { label: "Visit the farmers market", href: "/market" },
+  { label: "Host a private event", href: "/experiences" },
+  { label: 'Say "I Do" at the farm', href: "/experiences?focus=weddings" },
+  { label: "Visit with our farm animals", href: "/animals" },
+  { label: "Buy local beef", href: "/visit" },
+  { label: "Visit the farm after dark", href: "/events" },
+  { label: "Plan a field trip", href: "/experiences?focus=field-trips" },
+  { label: "Line dance at the farm", href: "/events" },
+  { label: "Be a vendor at the market", href: "/visit?intent=vendor" },
 ] as const;
+
+export type ZoneMode = "market" | "residents" | "nights" | "experiences" | "visit";
+
+export type MapZone = {
+  id: string;
+  label: string;
+  desc: string;
+  x: number;
+  y: number;
+  image: string;
+  mode: ZoneMode;
+  href: string;
+};
+
+/**
+ * Real named places from the Hobe Sound Farms property map.
+ * Coordinates are % of the illustrated map image (desktop).
+ */
+export const mapZones: MapZone[] = [
+  {
+    id: "farmers-market-entrance",
+    label: "Farmers Market Entrance",
+    desc: "Main weekend entry — take a left into parking, then walk into the market.",
+    x: 18,
+    y: 78,
+    image: "/images/live/event-market.png",
+    mode: "market",
+    href: "/market",
+  },
+  {
+    id: "plants-produce",
+    label: "Plants & Produce",
+    desc: "Farm-grown veggies, herbs, and plant starters from Hobe Sound Farms.",
+    x: 28,
+    y: 62,
+    image: "/images/live/event-stand.png",
+    mode: "market",
+    href: "/market",
+  },
+  {
+    id: "coffee-hut",
+    label: "Coffee Hut",
+    desc: "Fuel up between vendor rows and activities.",
+    x: 32,
+    y: 58,
+    image: "/images/live/hero.png",
+    mode: "market",
+    href: "/market",
+  },
+  {
+    id: "the-bar",
+    label: "The Bar",
+    desc: "Yes — there's a bar on the farm. Drink responsibly.",
+    x: 42,
+    y: 52,
+    image: "/images/live/hero.png",
+    mode: "market",
+    href: "/market",
+  },
+  {
+    id: "main-stage",
+    label: "Main Stage",
+    desc: "Live band every market weekend — plus after-dark nights.",
+    x: 48,
+    y: 48,
+    image: "/images/live/offer-6.png",
+    mode: "nights",
+    href: "/events",
+  },
+  {
+    id: "gem-jungle",
+    label: "The Gem Jungle",
+    desc: "Mine for gems — dig, rinse, and keep what you find.",
+    x: 55,
+    y: 55,
+    image: "/images/live/offer-3.png",
+    mode: "market",
+    href: "/market#simulator",
+  },
+  {
+    id: "bouquet-bunker",
+    label: "Bouquet Bunker",
+    desc: "Launch seed bombs across the field — family-approved chaos.",
+    x: 52,
+    y: 62,
+    image: "/images/live/offer-2.png",
+    mode: "market",
+    href: "/market#simulator",
+  },
+  {
+    id: "farm-slide",
+    label: "Farm Slide",
+    desc: "Kid energy on a working farm — part of the weekend activity loop.",
+    x: 38,
+    y: 68,
+    image: "/images/live/offer-1.png",
+    mode: "market",
+    href: "/market",
+  },
+  {
+    id: "coconut-hut",
+    label: "The Coconut Hut",
+    desc: "A market stop with island snacks and shade.",
+    x: 35,
+    y: 54,
+    image: "/images/live/event-market.png",
+    mode: "market",
+    href: "/market",
+  },
+  {
+    id: "petunia-porch",
+    label: "The Petunia Porch",
+    desc: "A porch stop along the market walk — flowers, shade, and stalls nearby.",
+    x: 30,
+    y: 50,
+    image: "/images/live/event-stand.png",
+    mode: "market",
+    href: "/market",
+  },
+  {
+    id: "duck-pond",
+    label: "Duck Pond",
+    desc: "Khaki Campbell ducks and a cool pause on hot Florida days.",
+    x: 26,
+    y: 66,
+    image: "/images/live/turtles.jpg",
+    mode: "residents",
+    href: "/animals",
+  },
+  {
+    id: "animal-alley",
+    label: "Animal Alley",
+    desc: "The main livestock corridor — goats, guardians, and greetings.",
+    x: 44,
+    y: 58,
+    image: "/images/live/goat.jpg",
+    mode: "residents",
+    href: "/animals",
+  },
+  {
+    id: "petting-zoo",
+    label: "Petting Zoo",
+    desc: "Up-close animal encounters that steal the whole afternoon.",
+    x: 40,
+    y: 64,
+    image: "/images/live/goat-2.jpg",
+    mode: "residents",
+    href: "/animals",
+  },
+  {
+    id: "front-goat-paddock",
+    label: "Front Goat Paddock",
+    desc: "Nigerian Dwarf goats up front — part of the working breeding herd.",
+    x: 36,
+    y: 46,
+    image: "/images/live/goat.jpg",
+    mode: "residents",
+    href: "/animals",
+  },
+  {
+    id: "house-of-giants",
+    label: "House of the Giants",
+    desc: "Home of the Indio Gigante chickens — nearly three feet tall.",
+    x: 34,
+    y: 40,
+    image: "/images/live/rooster.jpg",
+    mode: "residents",
+    href: "/animals",
+  },
+  {
+    id: "hen-house",
+    label: "Hen House",
+    desc: "Commercial egg production and hatchery life on display.",
+    x: 48,
+    y: 38,
+    image: "/images/live/chicks.jpg",
+    mode: "residents",
+    href: "/animals",
+  },
+  {
+    id: "cattle-pen",
+    label: "Cattle Pen",
+    desc: "Brangus cattle — pasture-raised Florida beef.",
+    x: 58,
+    y: 36,
+    image: "/images/live/offer-4.png",
+    mode: "residents",
+    href: "/animals",
+  },
+  {
+    id: "cattle-feed",
+    label: "Cattle Feed Station",
+    desc: "Feed hungry Brangus up close at the cattle feeding station.",
+    x: 62,
+    y: 42,
+    image: "/images/live/offer-4.png",
+    mode: "market",
+    href: "/market#simulator",
+  },
+  {
+    id: "bamboo-row",
+    label: "Bamboo Row",
+    desc: "A shaded corridor along the acreage — walk between worlds.",
+    x: 50,
+    y: 44,
+    image: "/images/live/hero.png",
+    mode: "visit",
+    href: "/#atlas",
+  },
+  {
+    id: "deer-sanctuary",
+    label: "Deer Sanctuary",
+    desc: "A quieter wildlife corner of the 126-acre property.",
+    x: 68,
+    y: 28,
+    image: "/images/animal-deer.jpg",
+    mode: "residents",
+    href: "/animals",
+  },
+  {
+    id: "hsf-lake",
+    label: "HSF Lake",
+    desc: "The farm lake along the north edge of the property.",
+    x: 55,
+    y: 18,
+    image: "/images/live/turtles.jpg",
+    mode: "visit",
+    href: "/#atlas",
+  },
+  {
+    id: "pp-greenhouses",
+    label: "P & P Greenhouses",
+    desc: "Plants & Produce greenhouses — starters and Florida greenery.",
+    x: 72,
+    y: 34,
+    image: "/images/live/event-stand.png",
+    mode: "market",
+    href: "/market",
+  },
+  {
+    id: "sunflower-barn",
+    label: "Sunflower Barn",
+    desc: "Gatherings, showers, birthdays, and photo moments.",
+    x: 78,
+    y: 58,
+    image: "/images/live/offer-1.png",
+    mode: "experiences",
+    href: "/experiences?focus=birthdays",
+  },
+  {
+    id: "magnolia-barn",
+    label: "Magnolia Barn",
+    desc: "Weddings, corporate, and private celebrations on 126 acres.",
+    x: 84,
+    y: 48,
+    image: "/images/live/offer-5.png",
+    mode: "experiences",
+    href: "/experiences?focus=weddings",
+  },
+];
+
+/** Weekend market walk — curated stops from real map zones */
+export const marketWalk = [
+  mapZones.find((z) => z.id === "farmers-market-entrance")!,
+  mapZones.find((z) => z.id === "plants-produce")!,
+  mapZones.find((z) => z.id === "main-stage")!,
+  mapZones.find((z) => z.id === "gem-jungle")!,
+  mapZones.find((z) => z.id === "bouquet-bunker")!,
+  mapZones.find((z) => z.id === "cattle-feed")!,
+  mapZones.find((z) => z.id === "animal-alley")!,
+  mapZones.find((z) => z.id === "the-bar")!,
+].filter(Boolean);
 
 export const marketStats = [
   { label: "Vendors", value: 60, suffix: "+" },
@@ -82,13 +363,13 @@ export const vendorTypes = [
     category: "produce",
     tag: "Produce",
     title: "Farm-fresh Florida",
-    desc: "Seasonal veggies, herbs, plant starters grown on-site and across the state.",
+    desc: "Seasonal veggies, herbs, and plant starters grown on-site and across the state.",
   },
   {
     category: "food",
     tag: "Hot Food",
     title: "Food trucks & plates",
-    desc: "Fresh-made eats for the whole family — grab a cocktail while you're at it.",
+    desc: "Fresh-made eats for the whole family — plus a cocktail if you want one.",
   },
   {
     category: "bakery",
@@ -122,194 +403,56 @@ export const vendorTypes = [
   },
 ] as const;
 
-export const marketWalk = [
-  {
-    id: "vendor-barns",
-    label: "Vendor Barns",
-    desc: "60+ rotating makers — produce, food, crafts, plants. Roster changes weekly.",
-    x: 35,
-    y: 35,
-    image: "/images/live/event-market.png",
-  },
-  {
-    id: "main-stage",
-    label: "Main Stage",
-    desc: "Live band every market weekend. Music under the Florida sky.",
-    x: 72,
-    y: 38,
-    image: "/images/live/offer-6.png",
-  },
-  {
-    id: "gem-jungle",
-    label: "Gem Jungle",
-    desc: "Mine for gems — dig, rinse, keep what you find.",
-    x: 62,
-    y: 48,
-    image: "/images/live/offer-3.png",
-  },
-  {
-    id: "bouquet-bunker",
-    label: "Bouquet Bunker",
-    desc: "Launch seed bombs across the field. Pure weekend chaos.",
-    x: 48,
-    y: 55,
-    image: "/images/live/offer-2.png",
-  },
-  {
-    id: "cattle-feed",
-    label: "Cattle Feed",
-    desc: "Feed hungry Brangus at the cattle feeding station.",
-    x: 55,
-    y: 72,
-    image: "/images/live/offer-4.png",
-  },
-  {
-    id: "animal-alley",
-    label: "Animal Alley",
-    desc: "Petting zoo and animal encounters — kids' favorite stop.",
-    x: 40,
-    y: 58,
-    image: "/images/live/goat.jpg",
-  },
-  {
-    id: "the-bar",
-    label: "The Bar",
-    desc: "Yes, there's a bar. Drink responsibly on a working farm.",
-    x: 68,
-    y: 45,
-    image: "/images/live/hero.png",
-  },
-] as const;
-
-/** Ordered for atlas scrub — acreage overview first, not Market-first */
-export const mapZones = [
-  {
-    id: "magnolia-barn",
-    label: "Magnolia Barn",
-    desc: "Weddings, birthdays, corporate — say yes on 126 acres.",
-    x: 85,
-    y: 40,
-    image: "/images/live/offer-5.png",
-  },
-  {
-    id: "sunflower-barn",
-    label: "Sunflower Barn",
-    desc: "Gathering space for celebrations, showers, and photo moments.",
-    x: 78,
-    y: 52,
-    image: "/images/live/offer-1.png",
-  },
-  {
-    id: "animal-alley",
-    label: "Animal Alley",
-    desc: "Walk the main animal corridor — goats, guardians, and greetings.",
-    x: 40,
-    y: 58,
-    image: "/images/live/goat.jpg",
-  },
-  {
-    id: "house-of-giants",
-    label: "House of the Giants",
-    desc: "Home of the Indio Gigante chickens — nearly three feet tall.",
-    x: 28,
-    y: 42,
-    image: "/images/live/rooster.jpg",
-  },
-  {
-    id: "cattle-feed",
-    label: "Cattle Feed Station",
-    desc: "Feed the Brangus herd — pasture-raised Florida cattle.",
-    x: 55,
-    y: 72,
-    image: "/images/live/offer-4.png",
-  },
-  {
-    id: "petting-zoo",
-    label: "Petting Zoo",
-    desc: "Up-close animal encounters that steal the whole afternoon.",
-    x: 35,
-    y: 68,
-    image: "/images/live/goat-2.jpg",
-  },
-  {
-    id: "duck-pond",
-    label: "Duck Pond",
-    desc: "Khaki Campbell ducks and shade on Florida heat days.",
-    x: 22,
-    y: 62,
-    image: "/images/live/turtles.jpg",
-  },
-  {
-    id: "gem-jungle",
-    label: "The Gem Jungle",
-    desc: "Hands-on gem panning — dig, rinse, and keep what you find.",
-    x: 62,
-    y: 48,
-    image: "/images/live/offer-3.png",
-  },
-  {
-    id: "bouquet-bunker",
-    label: "Bouquet Bunker",
-    desc: "Launch seed bombs across the field. Pure farm chaos, family-approved.",
-    x: 48,
-    y: 55,
-    image: "/images/live/offer-2.png",
-  },
-  {
-    id: "main-stage",
-    label: "Main Stage",
-    desc: "Live music for market weekends and after-dark nights.",
-    x: 72,
-    y: 38,
-    image: "/images/live/event-market.png",
-  },
-] as const;
-
 export const residents = [
   {
     slug: "nigerian-dwarf-goats",
     species: "Nigerian Dwarf Goats",
-    role: "Breeding herd · pasture management",
+    role: "Breeding herd · Front Goat Paddock",
     blurb:
-      "Raised for breeding and sale. Their rotational grazing keeps vegetation in check across the acreage.",
+      "Raised for breeding and sale. Rotational grazing keeps vegetation in check across the acreage.",
     image: "/images/live/goat.jpg",
-    alt: "Goat in the Hobe Sound Farms petting zoo",
+    alt: "Goat at Hobe Sound Farms",
+    zoneId: "front-goat-paddock",
   },
   {
     slug: "brangus-cattle",
     species: "Brangus Cattle",
-    role: "Pasture-raised · sold at market",
+    role: "Pasture-raised · Cattle Pen",
     blurb:
       "Angus quality meets Brahman heat tolerance — built for Florida. Locally born, grain finished, USDA processed.",
     image: "/images/live/offer-4.png",
-    alt: "Cattle feeding station at Hobe Sound Farms",
+    alt: "Cattle at Hobe Sound Farms",
+    zoneId: "cattle-pen",
   },
   {
     slug: "guardian-donkeys",
     species: "Donkeys",
     role: "Livestock guardians",
     blurb:
-      "Working guardians protecting cattle and goat herds — an accepted commercial agricultural practice.",
-    image: "/images/live/goat-2.jpg",
-    alt: "Farm animals near the paddock",
+      "Working guardians protecting cattle and goat herds — a commercial agricultural practice on the farm.",
+    image: "/images/animal-donkey.jpg",
+    alt: "Donkey livestock guardian at Hobe Sound Farms",
+    zoneId: "animal-alley",
   },
   {
     slug: "hens-chicks",
     species: "Hens & Chicks",
-    role: "Eggs · hatchery · brooder kits",
+    role: "Eggs · Hatchery · Hen House",
     blurb:
-      "Commercial egg production plus the Hatchery — fertilized eggs, chicks, and complete brooder kits for families.",
+      "Commercial egg production plus the Hatchery — fertilized eggs, chicks, and brooder kits for families.",
     image: "/images/live/chicks.jpg",
     alt: "Chicks at the Hobe Sound Hatchery",
+    zoneId: "hen-house",
   },
   {
     slug: "indio-gigante",
     species: "Indio Gigante Chickens",
-    role: "Heritage breeding stock",
+    role: "Heritage stock · House of the Giants",
     blurb:
       "A heritage meat breed raised as breeding stock. Meet them at House of the Giants.",
     image: "/images/live/rooster.jpg",
-    alt: "Rooster at Hobe Sound Farms",
+    alt: "Indio Gigante rooster at Hobe Sound Farms",
+    zoneId: "house-of-giants",
   },
   {
     slug: "turkeys-quail",
@@ -319,6 +462,7 @@ export const residents = [
       "White Holland turkeys and Coturnix quail — raised on site as part of the working farm.",
     image: "/images/live/turkey.jpg",
     alt: "Turkeys at Hobe Sound Farms",
+    zoneId: "hen-house",
   },
 ] as const;
 
@@ -356,7 +500,7 @@ export const activities = [
   {
     id: "music",
     title: "Live Music",
-    desc: "Bands on the Main Stage every market weekend — plus After Hours nights.",
+    desc: "Bands on the Main Stage every market weekend — plus Farm After Dark nights.",
     image: "/images/live/event-market.png",
   },
 ] as const;
@@ -366,8 +510,17 @@ export const events = [
     id: "merica",
     title: "'Merica… Farm Yeah!",
     when: "Seasonal summer sendoff",
-    desc: "Live music, food trucks, full bar, mechanical bull, vendors, VIP seating.",
+    desc: "The ultimate summer sendoff — live music, food trucks, full bar, vendors, VIP seating.",
     image: "/images/live/merica.png",
+    cta: "Get tickets",
+    href: "/visit#tickets",
+  },
+  {
+    id: "after-dark",
+    title: "Farm After Dark",
+    when: "Select evenings",
+    desc: "Live music, line dancing, and night energy on the farm.",
+    image: "/images/live/hero.png",
     cta: "Get tickets",
     href: "/visit#tickets",
   },
@@ -377,7 +530,7 @@ export const events = [
     when: "Every Sat & Sun · 9am – 2pm",
     desc: "60+ vendors, farm activities, food trucks, live music — year-round.",
     image: "/images/live/event-market.png",
-    cta: "Enter Market Mode",
+    cta: "Open Market Mode",
     href: "/market",
   },
   {
@@ -395,7 +548,16 @@ export const events = [
     when: "Mon – Fri · 9am – 4pm",
     desc: "Local produce, eggs, honey, and beef — weekday pickup at the stand.",
     image: "/images/live/event-stand.png",
-    cta: "Shop the stand",
+    cta: "Plan a weekday visit",
+    href: "/visit",
+  },
+  {
+    id: "pumpkin",
+    title: "Legendary Pumpkin Patch",
+    when: "Seasonal · Coming soon",
+    desc: "Visit the legendary pumpkin patch every year — watch for fall dates.",
+    image: "/images/live/offer-6.png",
+    cta: "Get updates",
     href: "/visit",
   },
 ] as const;
@@ -429,10 +591,10 @@ export const tickets = [
     priceLabel: "$35",
     amountCents: 3500,
     features: [
-      "Gem mining",
-      "Tractor ride",
-      "Seed bomb launch",
-      "Market-day fun pack",
+      "Gem mining at The Gem Jungle",
+      "Barrel tractor ride",
+      "Seed bomb launch at Bouquet Bunker",
+      "Market-day activity pack",
     ],
     featured: false,
   },
@@ -443,8 +605,8 @@ export const tickets = [
     features: [
       "Evening admission",
       "Live music access",
+      "Line dancing nights",
       "Night-market energy",
-      "Live music access",
     ],
     featured: true,
   },
@@ -525,3 +687,11 @@ export const experiences = [
     image: "/images/live/hero.png",
   },
 ] as const;
+
+export function getZone(id: string) {
+  return mapZones.find((z) => z.id === id);
+}
+
+export function zonesForMode(mode: ZoneMode) {
+  return mapZones.filter((z) => z.mode === mode);
+}

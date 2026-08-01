@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { modes, site } from "@/lib/content";
+import { intents, modes, site } from "@/lib/content";
 import { useAcreage } from "@/components/acreage-provider";
 
 const modeVisual: Record<string, { image: string; tone: string }> = {
@@ -40,11 +40,11 @@ export function HubLanding() {
           src={site.map}
           alt=""
           fill
-          className="object-cover opacity-40 kenburns"
+          className="object-cover opacity-35 kenburns"
           sizes="100vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-soil via-soil/80 to-soil/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-soil via-soil/85 to-soil/45" />
         <div className="grain absolute inset-0" />
       </div>
 
@@ -55,18 +55,29 @@ export function HubLanding() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="font-atlas text-[10px] text-citrus">
-            The Acreage · World hub
+            The Acreage · App hub
           </p>
-          <h1 className="font-display mt-3 max-w-[14ch] text-[clamp(3rem,10vw,6.5rem)] leading-[0.88] tracking-tight">
+          <h1 className="font-display mt-3 max-w-[14ch] text-[clamp(2.75rem,9vw,6rem)] leading-[0.88] tracking-tight">
             You&apos;re on the property
           </h1>
           <p className="mt-4 max-w-xl text-lg text-shell/75">
-            Four worlds on 126 acres. Explore the atlas, or enter a mode —
-            Market is one door, not the whole farm.
+            {site.blurb}
           </p>
         </motion.div>
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 flex gap-2 overflow-x-auto pb-2">
+          {intents.map((intent) => (
+            <Link
+              key={intent.label}
+              href={intent.href}
+              className="shrink-0 rounded-full border border-shell/20 bg-shell/5 px-4 py-2 text-[12px] text-shell/85 backdrop-blur-sm transition hover:border-citrus hover:bg-citrus hover:text-soil"
+            >
+              {intent.label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {modes.map((mode, i) => {
             const visual = modeVisual[mode.id];
             return (
@@ -74,11 +85,11 @@ export function HubLanding() {
                 key={mode.id}
                 initial={reducedMotion ? false : { opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + i * 0.08, duration: 0.55 }}
+                transition={{ delay: 0.12 + i * 0.07, duration: 0.55 }}
               >
                 <Link
                   href={mode.href}
-                  className="group relative flex min-h-[200px] flex-col justify-end overflow-hidden p-5 transition"
+                  className="group relative flex min-h-[190px] flex-col justify-end overflow-hidden p-5"
                 >
                   <Image
                     src={visual.image}
@@ -90,7 +101,7 @@ export function HubLanding() {
                   <div
                     className={`absolute inset-0 bg-gradient-to-t ${visual.tone} via-soil/50 to-soil/20`}
                   />
-                  <div className="absolute inset-0 bg-soil/35 transition group-hover:bg-soil/20" />
+                  <div className="absolute inset-0 bg-soil/35 transition group-hover:bg-soil/15" />
                   <div className="relative z-10">
                     <p className="font-atlas text-[9px] text-citrus">
                       Mode {String(i + 1).padStart(2, "0")}
@@ -112,7 +123,7 @@ export function HubLanding() {
             onClick={() => scrollTo("#atlas")}
             className="rounded-full bg-citrus px-7 py-3.5 text-sm font-bold text-soil transition hover:bg-citrus-deep hover:text-shell"
           >
-            Explore the Atlas
+            Open interactive map
           </button>
           <Link
             href="/visit"

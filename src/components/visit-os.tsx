@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { knowBefore, modes, site, tickets } from "@/lib/content";
+import { intents, knowBefore, modes, site, tickets } from "@/lib/content";
 import { ContactForm } from "@/components/contact-form";
 import { PricingCard } from "@/components/pricing-card";
 import { Reveal } from "@/components/motion/reveal";
@@ -23,7 +23,7 @@ function useVisitStatus() {
           : "Market closed · see you next weekend",
       );
     } else if (day >= 1 && day <= 5 && hour >= 9 && hour < 16) {
-      setStatus("Farm stand open · until 4pm");
+      setStatus("Farm Stand open · until 4pm");
     } else {
       setStatus(`Market ${site.marketHours}`);
     }
@@ -59,7 +59,8 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
             Visit OS
           </h1>
           <p className="mt-4 max-w-xl text-lg text-shell/75">
-            Directions, hours, passes, and planning — your day on 126 acres.
+            Hours, directions, passes, and planning — your day on 126 acres at{" "}
+            {site.address}.
           </p>
         </div>
       </section>
@@ -82,22 +83,23 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
                   </dd>
                 </div>
                 <div className="border border-soil/10 bg-white/60 p-5">
-                  <dt className="font-atlas text-[9px] text-mute">
-                    Farm Stand
-                  </dt>
+                  <dt className="font-atlas text-[9px] text-mute">Farm Stand</dt>
                   <dd className="font-display mt-2 text-2xl">
                     {site.standHours}
                   </dd>
-                  <dd className="mt-1 text-sm text-mute">Weekday pickup</dd>
+                  <dd className="mt-1 text-sm text-mute">
+                    Local produce, eggs, honey & beef
+                  </dd>
                 </div>
               </dl>
             </Reveal>
 
-            <Reveal delay={0.08}>
+            <Reveal delay={0.06}>
               <p className="font-atlas text-[10px] text-citrus">Directions</p>
               <h2 className="font-display mt-2 text-3xl tracking-tight">
                 {site.address}
               </h2>
+              <p className="mt-2 text-sm text-mute">{site.locationNote}</p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <a
                   href={site.mapsUrl}
@@ -120,29 +122,43 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
               </p>
             </Reveal>
 
+            <Reveal delay={0.1}>
+              <p className="font-atlas text-[10px] text-citrus">I would like to…</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {intents.map((intent) => (
+                  <Link
+                    key={intent.label}
+                    href={intent.href}
+                    className="rounded-full border border-soil/15 px-4 py-2.5 text-sm transition hover:border-citrus hover:bg-citrus/10"
+                  >
+                    {intent.label}
+                  </Link>
+                ))}
+              </div>
+            </Reveal>
+
             <Reveal delay={0.12}>
-              <p className="font-atlas text-[10px] text-citrus">Discover</p>
+              <p className="font-atlas text-[10px] text-citrus">Modes</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {modes.map((mode) => (
                   <Link
                     key={mode.id}
                     href={mode.href}
-                    className="rounded-full border border-soil/15 px-4 py-2.5 text-sm transition hover:border-citrus hover:bg-citrus/10"
+                    className="rounded-full border border-soil/15 px-4 py-2.5 text-sm transition hover:border-lagoon hover:bg-lagoon/10"
                   >
                     {mode.label}
-                    <span className="ml-2 text-mute">· {mode.desc}</span>
                   </Link>
                 ))}
                 <Link
                   href="/#atlas"
-                  className="rounded-full border border-soil/15 px-4 py-2.5 text-sm transition hover:border-lagoon hover:bg-lagoon/10"
+                  className="rounded-full border border-soil/15 px-4 py-2.5 text-sm transition hover:border-citrus hover:bg-citrus/10"
                 >
-                  Acreage Atlas
+                  Interactive map
                 </Link>
               </div>
             </Reveal>
 
-            <Reveal delay={0.16}>
+            <Reveal delay={0.14}>
               <p id="tickets" className="font-atlas text-[10px] text-citrus">
                 Passes
               </p>
@@ -158,7 +174,7 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
             <Reveal>
               <ContactForm defaultMessage={defaultMessage} />
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.08}>
               <p className="font-atlas text-[10px] text-citrus">
                 Know before you go
               </p>
@@ -173,6 +189,24 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
                   </li>
                 ))}
               </ul>
+              <div className="mt-6 flex flex-wrap gap-3 text-sm">
+                <a
+                  href={site.facebookMarket}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-citrus underline underline-offset-4"
+                >
+                  Facebook vendor list
+                </a>
+                <a
+                  href={site.instagram}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-citrus underline underline-offset-4"
+                >
+                  Instagram
+                </a>
+              </div>
             </Reveal>
           </div>
         </div>

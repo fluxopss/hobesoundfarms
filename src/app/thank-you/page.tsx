@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AtlasChrome } from "@/components/atlas-chrome";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 
 export const metadata: Metadata = {
   title: "Thank You",
@@ -10,9 +9,8 @@ export const metadata: Metadata = {
 
 export default function ThankYouPage() {
   return (
-    <>
-      <AtlasChrome />
-      <main className="mx-auto flex min-h-[70vh] max-w-2xl flex-col items-center justify-center px-6 pb-24 pt-28 text-center md:pb-0">
+    <AppShell showStatus={false}>
+      <main className="mx-auto flex min-h-[70vh] max-w-2xl flex-col items-center justify-center px-6 pt-28 text-center">
         <p className="font-atlas text-[10px] text-citrus">Message received</p>
         <h1 className="font-display mt-3 text-5xl tracking-tight text-soil">
           Thank you
@@ -20,20 +18,19 @@ export default function ThankYouPage() {
         <p className="mt-4 text-lg text-mute">See you at the farm.</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
-            href="/market"
+            href="/#hub"
             className="rounded-full bg-citrus px-6 py-3 text-sm font-bold text-soil"
           >
-            Enter Market Mode
+            Back to app hub
           </Link>
           <Link
-            href="/"
+            href="/market"
             className="rounded-full bg-soil px-6 py-3 text-sm font-semibold text-shell"
           >
-            Back to the Atlas
+            Market Mode
           </Link>
         </div>
       </main>
-      <SiteFooter />
-    </>
+    </AppShell>
   );
 }

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { AtlasChrome } from "@/components/atlas-chrome";
+import { Suspense } from "react";
+import { AppShell } from "@/components/app-shell";
 import { VisitOS } from "@/components/visit-os";
-import { SiteFooter } from "@/components/site-footer";
-import { PageTransition } from "@/components/motion/page-transition";
 
 export const metadata: Metadata = {
   title: "Visit",
@@ -13,22 +12,24 @@ export const metadata: Metadata = {
 export default async function VisitPage({
   searchParams,
 }: {
-  searchParams: Promise<{ experience?: string }>;
+  searchParams: Promise<{ experience?: string; intent?: string }>;
 }) {
   const params = await searchParams;
-  const experience = params.experience
-    ? `I'd like to inquire about: ${params.experience}`
-    : "";
+  let defaultMessage = "";
+  if (params.experience) {
+    defaultMessage = `I'd like to inquire about: ${params.experience}`;
+  } else if (params.intent === "vendor") {
+    defaultMessage =
+      "I'd like to apply as a vendor at the Hobe Sound Farmers Market.";
+  }
 
   return (
-    <>
-      <AtlasChrome />
-      <PageTransition>
-        <main className="pb-20 md:pb-0">
-          <VisitOS defaultMessage={experience} />
-        </main>
-      </PageTransition>
-      <SiteFooter />
-    </>
+    <AppShell>
+      <main>
+        <Suspense fallback={null}>
+          <VisitOS defaultMessage={defaultMessage} />
+        </Suspense>
+      </main>
+    </AppShell>
   );
 }

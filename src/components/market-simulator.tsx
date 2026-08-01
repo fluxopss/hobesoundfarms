@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,18 +13,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 type Stop = (typeof marketWalk)[number];
 
-export function MarketSimulator({ compact = false }: { compact?: boolean }) {
+export function MarketSimulator() {
   const { reducedMotion } = useAcreage();
   const sectionRef = useRef<HTMLElement>(null);
   const [lit, setLit] = useState(0);
   const [active, setActive] = useState<Stop | null>(null);
 
   useEffect(() => {
-    if (reducedMotion || compact) return;
+    if (reducedMotion) return;
     const section = sectionRef.current;
     if (!section) return;
-    const img = section.querySelector<HTMLElement>(".sim-map");
-    if (!img) return;
+    const img = section.querySelectorAll<HTMLElement>(".sim-map");
+    if (!img.length) return;
 
     const end = window.innerWidth < 768 ? "+=140%" : "+=200%";
     const ctx = gsap.context(() => {
@@ -47,13 +48,13 @@ export function MarketSimulator({ compact = false }: { compact?: boolean }) {
         })
         .fromTo(
           img,
-          { scale: 1.08, xPercent: 4 },
-          { scale: 1.4, xPercent: -10, yPercent: -4 },
+          { scale: 1.06, xPercent: 2 },
+          { scale: 1.35, xPercent: -8, yPercent: -3 },
         );
     }, section);
 
     return () => ctx.revert();
-  }, [reducedMotion, compact]);
+  }, [reducedMotion]);
 
   useEffect(() => {
     if (!active) return;
@@ -64,19 +65,17 @@ export function MarketSimulator({ compact = false }: { compact?: boolean }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [active]);
 
+  const current = marketWalk[lit];
+
   return (
     <section
       ref={sectionRef}
       id="simulator"
       data-chrome-dark
       className="relative bg-soil text-shell"
-      aria-label="Weekend market walk simulator"
+      aria-label="Weekend market walk"
     >
-      <div
-        className={`flex flex-col justify-between px-5 py-16 sm:px-10 lg:px-16 ${
-          compact ? "min-h-[85svh]" : "min-h-[100svh]"
-        }`}
-      >
+      <div className="flex min-h-[100svh] flex-col justify-between px-5 py-16 sm:px-10 lg:px-16">
         <div className="relative z-10 max-w-xl">
           <p className="font-atlas text-[10px] text-citrus">
             Market Mode · Weekend walk
@@ -85,8 +84,8 @@ export function MarketSimulator({ compact = false }: { compact?: boolean }) {
             Walk the market
           </h2>
           <p className="mt-3 max-w-md text-shell/70">
-            Scrub the path. Tap stops — Vendor Barns, Main Stage, Gem Jungle,
-            Bouquet Bunker, and more.
+            Scrub the path through real places — Entrance, Main Stage, Gem
+            Jungle, Bouquet Bunker, Cattle Feed, Animal Alley, The Bar.
           </p>
         </div>
 
@@ -125,16 +124,24 @@ export function MarketSimulator({ compact = false }: { compact?: boolean }) {
           ))}
         </div>
 
-        <div className="relative z-10 mt-6">
-          <p className="font-atlas text-[10px] text-citrus">
-            Stop {lit + 1}/{marketWalk.length}
-          </p>
-          <p className="font-display text-2xl tracking-tight">
-            {marketWalk[lit]?.label}
-          </p>
-          <p className="mt-1 max-w-md text-sm text-shell/65">
-            {marketWalk[lit]?.desc}
-          </p>
+        <div className="relative z-10 mt-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="font-atlas text-[10px] text-citrus">
+              Stop {lit + 1}/{marketWalk.length}
+            </p>
+            <p className="font-display text-2xl tracking-tight">
+              {current?.label}
+            </p>
+            <p className="mt-1 max-w-md text-sm text-shell/65">
+              {current?.desc}
+            </p>
+          </div>
+          <Link
+            href="/#atlas"
+            className="text-sm text-shell/60 underline-offset-4 hover:text-citrus hover:underline"
+          >
+            Full acreage atlas →
+          </Link>
         </div>
       </div>
 
@@ -167,9 +174,7 @@ export function MarketSimulator({ compact = false }: { compact?: boolean }) {
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8">
-                <p className="font-atlas text-[10px] text-citrus">
-                  Market stop
-                </p>
+                <p className="font-atlas text-[10px] text-citrus">Market stop</p>
                 <h3 className="font-display mt-2 text-3xl tracking-tight">
                   {active.label}
                 </h3>

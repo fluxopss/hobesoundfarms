@@ -45,8 +45,13 @@ export function SiteFooter() {
           <p className="font-atlas text-[9px] text-shell/40">Modes</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
+              <Link href="/#hub" className="hover:text-citrus">
+                App hub
+              </Link>
+            </li>
+            <li>
               <Link href="/#atlas" className="hover:text-citrus">
-                Acreage Atlas
+                Interactive map
               </Link>
             </li>
             {modes.map((mode) => (
@@ -56,6 +61,11 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/visit" className="hover:text-citrus">
+                Visit OS
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
