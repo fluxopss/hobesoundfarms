@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/* Mangrove & Florida Sky — Hobe Sound Farms */
+:root {
+  --color-bg: #e7ede6;
+  --color-bg-chalk: #f3f6f2;
+  --color-ink: #14281f;
+  --color-ink-muted: #3d5248;
+  --color-sky: #2f7a8a;
+  --color-sky-deep: #1f5a66;
+  --color-citrus: #d4a017;
+  --color-citrus-deep: #b8860b;
+  --color-mangrove: #14281f;
+  --color-field: #c5d4b8;
+  --color-road: #c4b59a;
+  --font-display: "Gambarino", Georgia, serif;
+  --font-body: "Satoshi", system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-chalk: var(--color-bg-chalk);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-sky: var(--color-sky);
+  --color-sky-deep: var(--color-sky-deep);
+  --color-citrus: var(--color-citrus);
+  --color-citrus-deep: var(--color-citrus-deep);
+  --color-mangrove: var(--color-mangrove);
+  --color-field: var(--color-field);
+  --color-road: var(--color-road);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-sky) 35%, transparent);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-sky);
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Hero ken-burns */
+@keyframes kenburns {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.08) translate3d(0, -2%, 0);
+  }
+}
+
+.hero-kenburns {
+  animation: kenburns 22s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-kenburns {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Animal strip snap */
+.animals-track {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.animals-track > * {
+  scroll-snap-align: start;
+}
+
+/* Farm map zones */
+.map-zone {
+  cursor: pointer;
+  transition: filter 180ms ease, opacity 180ms ease;
+}
+
+.map-zone:hover,
+.map-zone:focus-visible {
+  filter: brightness(1.08) drop-shadow(0 0 8px rgba(47, 122, 138, 0.55));
+  outline: none;
+}
+
+.map-popover {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.map-popover.visible {
+  opacity: 1;
+  transform: none;
+}

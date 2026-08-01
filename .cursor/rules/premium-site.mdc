@@ -1,0 +1,19 @@
+---
+description: Premium Next.js client site conventions — GHL, Square, VPS deploy
+globs: "**/*"
+alwaysApply: false
+---
+
+# Premium Site Template Rules
+
+When editing this template:
+
+1. **Secrets** — only in `.env.local`, never committed. Document new vars in `.env.example`.
+2. **GHL leads** — use `sendLeadToGhl()` from `src/lib/ghl.ts`; do not add Zapier for form capture.
+3. **Square payments** — use `createSquareCheckoutLink()` server-side; never expose access token client-side.
+4. **Deploy target** — VPS + PM2 + Caddy, not Vercel. Keep `ecosystem.config.cjs` and `.github/workflows/deploy.yml` in sync.
+5. **Branding** — customize `src/app/page.tsx` and `layout.tsx` metadata; keep section structure unless client requests otherwise.
+6. **Ports** — default PM2 port 3001; change per client if multiple apps on same VPS.
+7. **Repos** — publish to `fluxopss/<client-name>` on GitHub.
+
+For infrastructure (SSH, MCP, DNS), read skill `flux-hub-workstation`.

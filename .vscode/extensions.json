@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "usernamehw.errorlens",
+    "yoavbls.pretty-ts-errors",
+    "christian-kohler.path-intellisense",
+    "bradlc.vscode-tailwindcss",
+    "dsznajder.es7-react-js-snippets",
+    "formulahendry.auto-rename-tag",
+    "csstools.postcss",
+    "naumovs.color-highlight",
+    "heybourn.headwind",
+    "ms-vscode-remote.remote-ssh",
+    "rangav.vscode-thunder-client",
+    "PKief.material-icon-theme"
+  ]
+}
