@@ -1,6 +1,6 @@
-# Hobe Sound Farms — OPEN THE GATE
+# Hobe Sound Farms — THE ACREAGE
 
-Cinematic trail experience pitch for [Hobe Sound Farms](https://hobesoundfarms.com/) — gate entrance, scrub-driven acreage map, livestock takeovers, weekend arcade, event billboards.
+Destination platform for [Hobe Sound Farms](https://hobesoundfarms.com/) — cinematic prologue, map-first Acreage Atlas, mode worlds (Market · Residents · Nights · Experiences), and app-like Visit OS.
 
 ## Stack
 

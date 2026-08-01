@@ -6,7 +6,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { marketStats, site } from "@/lib/content";
-import { useTrail } from "@/components/trail-provider";
+import { useAcreage } from "@/components/acreage-provider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -58,14 +58,14 @@ function CountUp({
   );
 }
 
-export function MarketPulse() {
-  const { reducedMotion, gateDone } = useTrail();
+export function MarketPulse({ embedded = false }: { embedded?: boolean }) {
+  const { reducedMotion, entered } = useAcreage();
   const ref = useRef<HTMLElement>(null);
   const [play, setPlay] = useState(false);
   const status = useWeekendStatus();
 
   useEffect(() => {
-    if (!gateDone) return;
+    if (!entered && !embedded) return;
     const el = ref.current;
     if (!el) return;
 
@@ -94,80 +94,93 @@ export function MarketPulse() {
     }, el);
 
     return () => ctx.revert();
-  }, [gateDone, reducedMotion]);
+  }, [entered, embedded, reducedMotion]);
 
   return (
     <section
-      id="market"
+      id="market-pulse"
       ref={ref}
       data-chrome-dark
-      className="relative flex min-h-[100svh] items-end overflow-hidden bg-ink text-bleach"
+      className={`relative overflow-hidden bg-soil text-shell ${
+        embedded ? "min-h-[70svh] py-20" : "flex min-h-[100svh] items-end"
+      }`}
       aria-label="Farmers Market pulse"
     >
-      <div className="absolute inset-0">
-        <Image
-          src="/images/live/event-market.png"
-          alt="Hobe Sound Farmers Market weekend crowd and vendors"
-          fill
-          className="object-cover scale-105"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,90,60,0.35),transparent_45%)]" />
-        <div className="grain absolute inset-0" />
-      </div>
+      {!embedded && (
+        <div className="absolute inset-0">
+          <Image
+            src="/images/live/event-market.png"
+            alt="Hobe Sound Farmers Market weekend crowd and vendors"
+            fill
+            className="object-cover scale-105"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-soil via-soil/70 to-soil/30" />
+          <div className="grain absolute inset-0" />
+        </div>
+      )}
 
-      <div className="relative z-10 w-full px-5 pb-28 pt-32 sm:px-10 sm:pb-32 lg:pl-28">
+      <div
+        className={`relative z-10 w-full px-5 sm:px-10 lg:px-16 ${
+          embedded ? "" : "pb-28 pt-32 sm:pb-32"
+        }`}
+      >
         <p
           data-pulse
-          className="font-stamp inline-flex items-center gap-2 rounded-full border border-flare/50 bg-flare/15 px-4 py-2 text-[10px] text-flare"
+          className="font-atlas inline-flex items-center gap-2 rounded-full border border-citrus/50 bg-citrus/15 px-4 py-2 text-[10px] text-citrus"
         >
-          <span className="h-2 w-2 animate-pulse rounded-full bg-flare" />
+          <span className="h-2 w-2 animate-pulse rounded-full bg-citrus" />
           {status}
         </p>
 
         <h2
           data-pulse
-          className="font-display mt-5 max-w-[10ch] text-[clamp(4rem,14vw,10rem)] leading-[0.82] uppercase tracking-tight"
+          className="font-display mt-5 max-w-[12ch] text-[clamp(2.5rem,8vw,5rem)] leading-[0.9] tracking-tight"
         >
-          The Market
+          {embedded ? "The weekend pulse" : "The Market"}
         </h2>
 
-        <p data-pulse className="mt-4 max-w-xl text-lg text-bleach/80 sm:text-xl">
-          South Florida&apos;s weekend ritual — {site.marketHours}. 60+ vendors, live music, Gem
-          Jungle, tractor rides, animals, and a bar on a working farm.
+        <p data-pulse className="mt-4 max-w-xl text-lg text-shell/80">
+          South Florida&apos;s weekend ritual — {site.marketHours}. 60+ vendors,
+          live music, Gem Jungle, tractor rides, animals, and a bar on a working
+          farm.
         </p>
 
-        <div data-pulse className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+        <div
+          data-pulse
+          className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4"
+        >
           {marketStats.map((stat) => (
             <div
               key={stat.label}
-              className="border border-bleach/20 bg-ink/40 px-4 py-5 backdrop-blur-sm"
+              className="border border-shell/20 bg-soil/40 px-4 py-5 backdrop-blur-sm"
             >
-              <p className="font-display text-3xl text-flare sm:text-4xl">
+              <p className="font-display text-3xl text-citrus sm:text-4xl">
                 <CountUp value={stat.value} suffix={stat.suffix} play={play} />
               </p>
-              <p className="font-stamp mt-2 text-[9px] text-bleach/55">{stat.label}</p>
+              <p className="font-atlas mt-2 text-[9px] text-shell/55">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
 
-        <div data-pulse className="mt-10 flex flex-wrap gap-3">
-          <Link
-            href="/market"
-            className="rounded-full bg-flare px-7 py-4 text-sm font-bold uppercase tracking-wide text-ink transition hover:bg-flare-deep hover:text-bleach"
-          >
-            Enter Market Mode
-          </Link>
-          <a
-            href={site.mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full border border-bleach/45 bg-bleach/10 px-7 py-4 text-sm font-semibold text-bleach backdrop-blur-sm transition hover:bg-bleach/20"
-          >
-            Get Directions
-          </a>
-        </div>
+        {!embedded && (
+          <div data-pulse className="mt-10 flex flex-wrap gap-3">
+            <Link
+              href="/market"
+              className="rounded-full bg-citrus px-7 py-4 text-sm font-bold tracking-wide text-soil transition hover:bg-citrus-deep hover:text-shell"
+            >
+              Enter Market Mode
+            </Link>
+            <Link
+              href="/visit"
+              className="rounded-full border border-shell/45 bg-shell/10 px-7 py-4 text-sm font-semibold text-shell backdrop-blur-sm"
+            >
+              Plan visit
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -1,20 +1,36 @@
 @import "tailwindcss";
 
-/* Sunstruck Trail Documentary — OPEN THE GATE */
+/* THE ACREAGE — Destination Platform */
 :root {
-  --ink: #0e1512;
-  --bleach: #f4f7f2;
-  --shade: #1f4d3a;
-  --flare: #ff5a3c;
-  --flare-deep: #e03e22;
-  --dust: #c8c2b0;
-  --mute: #5a6b62;
-  --font-display: "Clash Display", "Arial Narrow", Impact, sans-serif;
+  --soil: #0b1210;
+  --shell: #f3f1ec;
+  --canopy: #1a4a38;
+  --citrus: #f0a202;
+  --citrus-deep: #c98400;
+  --lagoon: #3d7a6e;
+  --dust: #c4c0b4;
+  --mute: #5c6b64;
+
+  /* Compat aliases used across components */
+  --ink: var(--soil);
+  --bleach: var(--shell);
+  --shade: var(--canopy);
+  --flare: var(--citrus);
+  --flare-deep: var(--citrus-deep);
+
+  --font-display: "Cabinet Grotesk", "Satoshi", system-ui, sans-serif;
   --font-body: "Satoshi", system-ui, sans-serif;
-  --font-stamp: "IBM Plex Mono", ui-monospace, monospace;
+  --font-atlas: "JetBrains Mono", ui-monospace, monospace;
+  --font-stamp: var(--font-atlas);
 }
 
 @theme inline {
+  --color-soil: var(--soil);
+  --color-shell: var(--shell);
+  --color-canopy: var(--canopy);
+  --color-citrus: var(--citrus);
+  --color-citrus-deep: var(--citrus-deep);
+  --color-lagoon: var(--lagoon);
   --color-ink: var(--ink);
   --color-bleach: var(--bleach);
   --color-shade: var(--shade);
@@ -24,6 +40,7 @@
   --color-mute: var(--mute);
   --font-display: var(--font-display);
   --font-sans: var(--font-body);
+  --font-atlas: var(--font-atlas);
   --font-stamp: var(--font-stamp);
 }
 
@@ -42,33 +59,34 @@ html {
 }
 
 body {
-  background: var(--bleach);
-  color: var(--ink);
+  background: var(--shell);
+  color: var(--soil);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--flare) 45%, transparent);
-  color: var(--ink);
+  background: color-mix(in srgb, var(--citrus) 45%, transparent);
+  color: var(--soil);
 }
 
 :focus-visible {
-  outline: 2px solid var(--flare);
+  outline: 2px solid var(--citrus);
   outline-offset: 3px;
 }
 
 .font-display {
   font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.035em;
 }
 
-.font-stamp {
-  font-family: var(--font-stamp);
+.font-stamp,
+.font-atlas {
+  font-family: var(--font-atlas);
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
 }
 
 .grain::after {
@@ -76,9 +94,22 @@ body {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.12;
+  opacity: 0.06;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(11, 18, 16, 0.55) 100%
+  );
+  z-index: 1;
 }
 
 .residents-track {
@@ -108,6 +139,19 @@ body {
   }
 }
 
+@keyframes kenburns {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1.14);
+  }
+}
+
+.kenburns {
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+
 .pb-safe {
   padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
 }
@@ -117,14 +161,10 @@ body {
     scroll-behavior: auto;
   }
 
-  .gate-panel,
-  .gate-stamp,
-  .map-stage img {
-    transition: none !important;
-    animation: none !important;
-  }
-
+  .kenburns,
+  .map-stage img,
   .animate-\[ticker_40s_linear_infinite\] {
     animation: none !important;
+    transition: none !important;
   }
 }

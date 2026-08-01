@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/content";
-import { TrailChrome } from "@/components/trail-chrome";
+import { AtlasChrome } from "@/components/atlas-chrome";
 import { MarketSimulator } from "@/components/market-simulator";
 import {
   MarketActivityDeck,
@@ -11,11 +11,12 @@ import {
   MarketKnowBefore,
   ReviewTicker,
 } from "@/components/market-layers";
-import { ArriveAndBook } from "@/components/arrive-and-book";
+import { MarketPulse } from "@/components/market-pulse";
 import { SiteFooter } from "@/components/site-footer";
+import { PageTransition } from "@/components/motion/page-transition";
 
 export const metadata: Metadata = {
-  title: "The Market",
+  title: "Market",
   description:
     "Hobe Sound Farmers Market — Sat & Sun 9am–2pm. 60+ vendors, Gem Jungle, Bouquet Bunker, tractor rides, live music, and animals.",
 };
@@ -23,55 +24,61 @@ export const metadata: Metadata = {
 export default function MarketPage() {
   return (
     <>
-      <TrailChrome />
-      <main>
-        <section
-          data-chrome-dark
-          className="relative flex min-h-[90svh] items-end overflow-hidden bg-ink pt-24 text-bleach"
-        >
-          <Image
-            src="/images/live/event-market.png"
-            alt="Hobe Sound Farmers Market"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/65 to-ink/25" />
-          <div className="grain absolute inset-0" />
-          <div className="relative z-10 w-full px-5 pb-16 sm:px-10 lg:pl-28">
-            <p className="font-stamp text-[10px] text-flare">Market Mode · {site.marketHours}</p>
-            <h1 className="font-display mt-4 max-w-[10ch] text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] uppercase tracking-tight">
-              Enter the weekend
-            </h1>
-            <p className="mt-4 max-w-xl text-lg text-bleach/80">
-              Year-round farmers market on a working farm — vendors, music, activities, animals, bar.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#simulator"
-                className="rounded-full bg-flare px-6 py-3.5 text-sm font-bold text-ink"
-              >
-                Start the walk
-              </a>
-              <Link
-                href="/#arrive"
-                className="rounded-full border border-bleach/40 px-6 py-3.5 text-sm font-semibold text-bleach"
-              >
-                Plan a visit
-              </Link>
+      <AtlasChrome />
+      <PageTransition>
+        <main className="pb-20 md:pb-0">
+          <section
+            data-chrome-dark
+            className="relative flex min-h-[90svh] items-end overflow-hidden bg-soil pt-24 text-shell"
+          >
+            <Image
+              src="/images/live/event-market.png"
+              alt="Hobe Sound Farmers Market"
+              fill
+              className="object-cover kenburns"
+              sizes="100vw"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-soil via-soil/65 to-soil/25" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(240,162,2,0.28),transparent_45%)]" />
+            <div className="grain absolute inset-0" />
+            <div className="relative z-10 w-full px-5 pb-16 sm:px-10 lg:px-16">
+              <p className="font-atlas text-[10px] text-citrus">
+                Mode · Market · {site.marketHours}
+              </p>
+              <h1 className="font-display mt-4 max-w-[10ch] text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] tracking-tight">
+                Enter the weekend
+              </h1>
+              <p className="mt-4 max-w-xl text-lg text-shell/80">
+                Year-round farmers market on a working farm — vendors, music,
+                activities, animals, bar.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="#simulator"
+                  className="rounded-full bg-citrus px-6 py-3.5 text-sm font-bold text-soil"
+                >
+                  Start the walk
+                </a>
+                <Link
+                  href="/visit"
+                  className="rounded-full border border-shell/40 px-6 py-3.5 text-sm font-semibold text-shell"
+                >
+                  Plan a visit
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <MarketSimulator />
-        <MarketActivityDeck />
-        <MarketFindIt />
-        <ReviewTicker />
-        <MarketKnowBefore />
-        <MarketJoinStrip />
-        <ArriveAndBook />
-      </main>
+          <MarketPulse embedded />
+          <MarketSimulator />
+          <MarketActivityDeck />
+          <MarketFindIt />
+          <ReviewTicker />
+          <MarketKnowBefore />
+          <MarketJoinStrip />
+        </main>
+      </PageTransition>
       <SiteFooter />
     </>
   );

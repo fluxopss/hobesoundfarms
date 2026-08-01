@@ -10,7 +10,13 @@ interface PricingCardProps {
   featured?: boolean;
 }
 
-export function PricingCard({ name, priceLabel, amountCents, features, featured }: PricingCardProps) {
+export function PricingCard({
+  name,
+  priceLabel,
+  amountCents,
+  features,
+  featured,
+}: PricingCardProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -46,23 +52,18 @@ export function PricingCard({ name, priceLabel, amountCents, features, featured 
 
   return (
     <div
-      className={`relative flex h-full flex-col border-2 p-6 sm:p-8 ${
+      className={`relative flex h-full flex-col p-6 sm:p-8 ${
         featured
-          ? "border-flare bg-ink text-bleach shadow-[6px_6px_0_0_rgba(255,90,60,0.45)]"
-          : "border-ink/25 bg-[#f7f3ea] text-ink shadow-[6px_6px_0_0_rgba(14,21,18,0.12)]"
+          ? "bg-soil text-shell"
+          : "border border-soil/12 bg-white/70 text-soil"
       }`}
     >
-      <div
-        className={`font-stamp absolute -right-1 top-4 rotate-3 border px-2 py-1 text-[8px] ${
-          featured ? "border-flare bg-flare text-ink" : "border-ink bg-ink text-bleach"
-        }`}
+      <p className="font-atlas text-[9px] text-citrus">Pass</p>
+      <h3 className="font-display mt-2 text-2xl tracking-tight">{name}</h3>
+      <p className="font-display mt-2 text-5xl text-citrus">{priceLabel}</p>
+      <ul
+        className={`mt-6 space-y-2 text-sm ${featured ? "text-shell/70" : "text-mute"}`}
       >
-        PASS
-      </div>
-      <p className="font-stamp text-[9px] text-flare">Stamped pass</p>
-      <h3 className="font-display mt-2 text-2xl uppercase tracking-tight">{name}</h3>
-      <p className="font-display mt-2 text-5xl">{priceLabel}</p>
-      <ul className={`mt-6 space-y-2 text-sm ${featured ? "text-bleach/75" : "text-mute"}`}>
         {features.map((feature) => (
           <li key={feature}>— {feature}</li>
         ))}
@@ -73,13 +74,13 @@ export function PricingCard({ name, priceLabel, amountCents, features, featured 
         disabled={loading}
         className={`mt-auto rounded-full px-4 py-3 font-semibold transition disabled:opacity-60 ${
           featured
-            ? "mt-8 bg-flare text-ink hover:bg-flare-deep hover:text-bleach"
-            : "mt-8 bg-ink text-bleach hover:bg-flare hover:text-ink"
+            ? "mt-8 bg-citrus text-soil hover:bg-citrus-deep hover:text-shell"
+            : "mt-8 bg-soil text-shell hover:bg-citrus hover:text-soil"
         }`}
       >
         {loading ? "Redirecting…" : "Get pass"}
       </button>
-      {error && <p className="mt-2 text-sm text-flare">{error}</p>}
+      {error && <p className="mt-2 text-sm text-citrus">{error}</p>}
     </div>
   );
 }

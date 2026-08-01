@@ -1,6 +1,6 @@
 export const site = {
   name: "Hobe Sound Farms",
-  tagline: "Open the gate. Walk the acreage.",
+  tagline: "Enter the acreage.",
   blurb:
     "A 126-acre working farm in Hobe Sound — weekend market, livestock, tractor rides, Gem Jungle, live music, and celebrations under the South Florida sky.",
   address: "1425 SE Bridge Road, Hobe Sound, FL 33455",
@@ -9,7 +9,8 @@ export const site = {
   email: "info@hobesoundfarms.com",
   marketHours: "Sat & Sun 9am – 2pm",
   standHours: "Mon – Fri 9am – 4pm",
-  mapsUrl: "https://maps.google.com/?q=1425+SE+Bridge+Road,+Hobe+Sound,+FL+33455",
+  mapsUrl:
+    "https://maps.google.com/?q=1425+SE+Bridge+Road,+Hobe+Sound,+FL+33455",
   facebookMarket: "https://www.facebook.com/hobesoundfarmersmarket",
   instagram: "https://www.instagram.com/hobesoundfarmersmarket/",
   logo: "/images/live/logo.png",
@@ -18,14 +19,44 @@ export const site = {
   mapMobile: "/images/live/map-mobile.png",
 };
 
+export const modes = [
+  {
+    id: "market",
+    label: "Market",
+    short: "Market",
+    href: "/market",
+    desc: "Weekend ritual — vendors, music, activities",
+    accent: "citrus",
+  },
+  {
+    id: "residents",
+    label: "Residents",
+    short: "Herd",
+    href: "/animals",
+    desc: "Livestock of a working Florida farm",
+    accent: "lagoon",
+  },
+  {
+    id: "nights",
+    label: "Nights",
+    short: "Nights",
+    href: "/events",
+    desc: "After-dark nights, sendoffs, line dancing",
+    accent: "canopy",
+  },
+  {
+    id: "experiences",
+    label: "Experiences",
+    short: "Book",
+    href: "/experiences",
+    desc: "Weddings, field trips, encounters, photos",
+    accent: "shell",
+  },
+] as const;
+
 export const trailChapters = [
-  { id: "landing", label: "Gate", href: "#landing" },
-  { id: "market", label: "Market", href: "#market" },
-  { id: "acreage", label: "Acreage", href: "#acreage" },
-  { id: "residents", label: "Residents", href: "#residents" },
-  { id: "weekend", label: "Walk", href: "#weekend" },
-  { id: "nights", label: "Nights", href: "#nights" },
-  { id: "arrive", label: "Arrive", href: "#arrive" },
+  { id: "atlas", label: "Atlas", href: "#atlas" },
+  { id: "arrive", label: "Visit", href: "/visit" },
 ] as const;
 
 export const marketStats = [
@@ -337,7 +368,7 @@ export const events = [
     desc: "Live music, food trucks, full bar, mechanical bull, vendors, VIP seating.",
     image: "/images/live/merica.png",
     cta: "Get tickets",
-    href: "/#arrive",
+    href: "/visit#tickets",
   },
   {
     id: "market",
@@ -355,7 +386,7 @@ export const events = [
     desc: "Good music, great company, all skill levels on the farm floor.",
     image: "/images/live/event-line.png",
     cta: "Join the night",
-    href: "/#arrive",
+    href: "/visit",
   },
   {
     id: "farm-stand",
@@ -364,7 +395,7 @@ export const events = [
     desc: "Local produce, eggs, honey, and beef — weekday pickup at the stand.",
     image: "/images/live/event-stand.png",
     cta: "Shop the stand",
-    href: "/#arrive",
+    href: "/visit",
   },
 ] as const;
 
@@ -396,25 +427,57 @@ export const tickets = [
     name: "HSFM Activity Bundle",
     priceLabel: "$35",
     amountCents: 3500,
-    features: ["Gem mining", "Tractor ride", "Seed bomb launch", "Market-day fun pack"],
+    features: [
+      "Gem mining",
+      "Tractor ride",
+      "Seed bomb launch",
+      "Market-day fun pack",
+    ],
     featured: false,
   },
   {
     name: "Farm After Dark",
     priceLabel: "$15",
     amountCents: 1500,
-    features: ["Evening admission", "Live music access", "Night-market energy", "Square checkout"],
+    features: [
+      "Evening admission",
+      "Live music access",
+      "Night-market energy",
+      "Live music access",
+    ],
     featured: true,
   },
 ] as const;
 
 export const knowBefore = [
-  { title: "Reusable bags", detail: "Bring your own — save the planet one tote at a time." },
-  { title: "Service animals only", detail: "No pets — keeps our livestock safe and calm (ADA service animals OK)." },
-  { title: "Comfortable shoes", detail: "This is a real working farm. You'll walk between barns, vendors, and activities." },
-  { title: "Sunscreen + hat", detail: "Florida sun does not negotiate. Cover up in summer." },
-  { title: "Parking", detail: "Enter the property and take a left. First-come, first-serve in front of the market." },
-  { title: "Restrooms", detail: "Porta-potties + hand sanitizer. Working agricultural farm — keep expectations honest." },
+  {
+    title: "Reusable bags",
+    detail: "Bring your own — save the planet one tote at a time.",
+  },
+  {
+    title: "Service animals only",
+    detail:
+      "No pets — keeps our livestock safe and calm (ADA service animals OK).",
+  },
+  {
+    title: "Comfortable shoes",
+    detail:
+      "This is a real working farm. You'll walk between barns, vendors, and activities.",
+  },
+  {
+    title: "Sunscreen + hat",
+    detail: "Florida sun does not negotiate. Cover up in summer.",
+  },
+  {
+    title: "Parking",
+    detail:
+      "Enter the property and take a left. First-come, first-serve in front of the market.",
+  },
+  {
+    title: "Restrooms",
+    detail:
+      "Porta-potties + hand sanitizer. Working agricultural farm — keep expectations honest.",
+  },
 ] as const;
 
 export const experiences = [
