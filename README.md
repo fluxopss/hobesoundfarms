@@ -1,10 +1,10 @@
-# Hobe Sound Farms
+# Hobe Sound Farms — OPEN THE GATE
 
-Full-scale Flux Labs pitch site for [Hobe Sound Farms](https://hobesoundfarms.com/) — cinematic visit experience with GHL lead capture and Square ticket checkout.
+Cinematic trail experience pitch for [Hobe Sound Farms](https://hobesoundfarms.com/) — gate entrance, scrub-driven acreage map, livestock takeovers, weekend arcade, event billboards.
 
 ## Stack
 
-Next.js 16 · TypeScript · Tailwind CSS 4 · pnpm · PM2 port **3010**
+Next.js 16 · GSAP · Lenis · Framer Motion · Tailwind 4 · PM2 port **3010**
 
 ## Local
 
@@ -14,11 +14,9 @@ pnpm install
 pnpm dev
 ```
 
-Copy `.env.example` → `.env.local` and set `GHL_WEBHOOK_URL` / Square sandbox keys when ready.
+## Preview
 
-## Deploy
-
-Push `main` to `fluxopss/hobesoundfarms`. PM2 app name `hobesoundfarms` on port 3010.
+http://2.25.206.39:3010
 
 ---
 
