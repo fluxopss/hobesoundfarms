@@ -27,7 +27,7 @@ export default function ThankYouPage() {
             href="/market"
             className="rounded-full bg-soil px-6 py-3 text-sm font-semibold text-shell"
           >
-            Market Mode
+            Farmers Market
           </Link>
         </div>
       </main>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Residents",
+  title: "Meet Our Residents",
   description:
     "Meet the livestock of Hobe Sound Farms — Brangus cattle, goats, hatchery chicks, Indio Gigante, and more.",
 };

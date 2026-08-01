@@ -78,7 +78,7 @@ export function MarketSimulator() {
       <div className="flex min-h-[100svh] flex-col justify-between px-5 py-16 sm:px-10 lg:px-16">
         <div className="relative z-10 max-w-xl">
           <p className="font-atlas text-[10px] text-citrus">
-            Market Mode · Weekend walk
+            Farmers Market · Weekend walk
           </p>
           <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-6xl">
             Walk the market
@@ -174,7 +174,9 @@ export function MarketSimulator() {
                 />
               </div>
               <div className="flex flex-col justify-center p-6 sm:p-8">
-                <p className="font-atlas text-[10px] text-citrus">Market stop</p>
+                <p className="font-atlas text-[10px] text-citrus">
+                  Market stop
+                </p>
                 <h3 className="font-display mt-2 text-3xl tracking-tight">
                   {active.label}
                 </h3>

@@ -14,7 +14,7 @@ import {
 import { MarketPulse } from "@/components/market-pulse";
 
 export const metadata: Metadata = {
-  title: "Market",
+  title: "Farmers Market",
   description:
     "Hobe Sound Farmers Market — Sat & Sun 9am–2pm. 60+ vendors, Gem Jungle, Bouquet Bunker, tractor rides, live music, and animals.",
 };
@@ -40,7 +40,7 @@ export default function MarketPage() {
           <div className="grain absolute inset-0" />
           <div className="relative z-10 w-full px-5 pb-16 sm:px-10 lg:px-16">
             <p className="font-atlas text-[10px] text-citrus">
-              Mode · Market · {site.marketHours}
+              Farmers Market · {site.marketHours}
             </p>
             <h1 className="font-display mt-4 max-w-[10ch] text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] tracking-tight">
               Enter the weekend
@@ -66,7 +66,7 @@ export default function MarketPage() {
                 href="/#hub"
                 className="rounded-full px-4 py-3.5 text-sm text-shell/60 underline-offset-4 hover:text-shell hover:underline"
               >
-                ← App hub
+                ← Home
               </Link>
             </div>
           </div>

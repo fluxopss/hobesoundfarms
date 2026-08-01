@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Experiences",
+  title: "Farm Experiences",
   description:
     "Weddings, field trips, animal encounters, birthdays, and Farm After Dark at Hobe Sound Farms.",
 };

@@ -56,7 +56,7 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
             {status}
           </p>
           <h1 className="font-display mt-5 max-w-[12ch] text-[clamp(3rem,10vw,6.5rem)] leading-[0.88] tracking-tight">
-            Visit OS
+            Plan a Visit
           </h1>
           <p className="mt-4 max-w-xl text-lg text-shell/75">
             Hours, directions, passes, and planning — your day on 126 acres at{" "}
@@ -83,7 +83,9 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
                   </dd>
                 </div>
                 <div className="border border-soil/10 bg-white/60 p-5">
-                  <dt className="font-atlas text-[9px] text-mute">Farm Stand</dt>
+                  <dt className="font-atlas text-[9px] text-mute">
+                    Farm Stand
+                  </dt>
                   <dd className="font-display mt-2 text-2xl">
                     {site.standHours}
                   </dd>
@@ -123,7 +125,9 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="font-atlas text-[10px] text-citrus">I would like to…</p>
+              <p className="font-atlas text-[10px] text-citrus">
+                I would like to…
+              </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {intents.map((intent) => (
                   <Link
@@ -138,7 +142,7 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
             </Reveal>
 
             <Reveal delay={0.12}>
-              <p className="font-atlas text-[10px] text-citrus">Modes</p>
+              <p className="font-atlas text-[10px] text-citrus">Explore</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {modes.map((mode) => (
                   <Link
@@ -153,7 +157,7 @@ export function VisitOS({ defaultMessage = "" }: { defaultMessage?: string }) {
                   href="/#atlas"
                   className="rounded-full border border-soil/15 px-4 py-2.5 text-sm transition hover:border-citrus hover:bg-citrus/10"
                 >
-                  Interactive map
+                  Farm Map
                 </Link>
               </div>
             </Reveal>

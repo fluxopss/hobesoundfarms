@@ -13,17 +13,8 @@ export function Prologue() {
   const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
-    if (reducedMotion && !entered) {
-      setEntered(true);
-      requestAnimationFrame(() => {
-        window.scrollTo(0, 0);
-        scrollTo("#hub");
-      });
-    }
-  }, [reducedMotion, entered, setEntered, scrollTo]);
-
-  useEffect(() => {
-    if (entered || reducedMotion || exiting) return;
+    if (entered || exiting) return;
+    window.scrollTo(0, 0);
     enterRef.current?.focus();
 
     const onKey = (e: KeyboardEvent) => {
@@ -32,33 +23,48 @@ export function Prologue() {
     window.addEventListener("keydown", onKey);
 
     const root = rootRef.current;
-    if (!root) return;
+    if (!root || reducedMotion) {
+      return () => window.removeEventListener("keydown", onKey);
+    }
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.fromTo(
         ".prologue-layer",
-        { scale: 1.12, opacity: 0.7 },
-        { scale: 1.05, opacity: 1, duration: 2.2, ease: "power2.out" },
-      );
-      gsap.fromTo(
-        ".prologue-copy > *",
-        { y: 36, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          stagger: 0.12,
-          delay: 0.35,
-          ease: "power3.out",
-        },
-      );
+        { scale: 1.18, opacity: 0.55 },
+        { scale: 1.06, opacity: 1, duration: 2.4, ease: "power2.out" },
+      )
+        .fromTo(
+          ".prologue-veil",
+          { opacity: 0.85 },
+          { opacity: 1, duration: 1.2 },
+          0,
+        )
+        .fromTo(
+          ".prologue-copy > *",
+          { y: 42, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.95,
+            stagger: 0.14,
+            ease: "power3.out",
+          },
+          0.4,
+        )
+        .fromTo(
+          ".prologue-cta",
+          { scale: 0.92, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.55 },
+          "-=0.35",
+        );
     }, root);
 
     return () => {
       ctx.revert();
       window.removeEventListener("keydown", onKey);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- enter is stable via refs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entered, reducedMotion, exiting]);
 
   function enter() {
@@ -70,7 +76,10 @@ export function Prologue() {
       setEntered(true);
       if (lenis) lenis.scrollTo(0, { immediate: true });
       else window.scrollTo(0, 0);
-      requestAnimationFrame(() => scrollTo("#hub"));
+      requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        scrollTo("#hub");
+      });
     };
 
     if (!root || reducedMotion) {
@@ -78,12 +87,14 @@ export function Prologue() {
       return;
     }
 
-    gsap.to(root, {
-      opacity: 0,
-      duration: 0.55,
-      ease: "power2.inOut",
-      onComplete: finish,
-    });
+    const tl = gsap.timeline({ onComplete: finish });
+    tl.to(".prologue-copy", { y: -24, opacity: 0, duration: 0.4 })
+      .to(
+        ".prologue-wipe",
+        { scaleY: 1, duration: 0.55, ease: "power3.inOut" },
+        "-=0.15",
+      )
+      .to(root, { opacity: 0, duration: 0.25 });
   }
 
   if (entered) return null;
@@ -105,10 +116,12 @@ export function Prologue() {
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-soil via-soil/55 to-soil/25" />
+        <div className="prologue-veil absolute inset-0 bg-gradient-to-t from-soil via-soil/55 to-soil/25" />
         <div className="vignette absolute inset-0" />
         <div className="grain absolute inset-0" />
       </div>
+
+      <div className="prologue-wipe pointer-events-none absolute inset-0 origin-bottom scale-y-0 bg-soil" />
 
       <div className="prologue-copy relative z-10 flex h-full flex-col items-center justify-end px-6 pb-16 text-center sm:justify-center sm:pb-0">
         <Image
@@ -132,7 +145,7 @@ export function Prologue() {
           ref={enterRef}
           type="button"
           onClick={enter}
-          className="mt-10 rounded-full bg-citrus px-8 py-4 text-sm font-bold tracking-wide text-soil transition hover:bg-citrus-deep hover:text-shell"
+          className="prologue-cta mt-10 rounded-full bg-citrus px-8 py-4 text-sm font-bold tracking-wide text-soil transition hover:bg-citrus-deep hover:text-shell"
         >
           Enter the acreage
         </button>

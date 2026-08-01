@@ -53,7 +53,7 @@ export default function ExperiencesPage() {
 
           <div className="relative z-10 flex min-h-[100svh] flex-col justify-end px-5 pb-16 sm:px-10 lg:px-16">
             <p className="font-atlas text-[10px] text-citrus">
-              Mode · Experiences · {current.tag}
+              Farm Experiences · {current.tag}
             </p>
             <h1 className="font-display mt-3 max-w-[12ch] text-[clamp(3rem,10vw,7rem)] leading-[0.85] tracking-tight">
               {current.title}
@@ -128,7 +128,7 @@ export default function ExperiencesPage() {
             href="/visit"
             className="inline-flex rounded-full bg-soil px-8 py-4 text-sm font-bold text-shell"
           >
-            Open Visit OS →
+            Plan a Visit →
           </Link>
         </section>
       </main>

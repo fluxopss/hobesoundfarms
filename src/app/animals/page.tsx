@@ -37,7 +37,7 @@ export default function AnimalsPage() {
           <div className="grain absolute inset-0" />
           <div className="relative z-10 w-full px-5 pb-16 sm:px-10 lg:px-16">
             <p className="font-atlas text-[10px] text-lagoon">
-              Mode · Residents · Working farm
+              Meet Our Residents · Working farm
             </p>
             <h1 className="font-display mt-4 text-[clamp(3rem,10vw,7rem)] leading-[0.85] tracking-tight">
               Meet the livestock
@@ -169,7 +169,7 @@ export default function AnimalsPage() {
               href="/#hub"
               className="inline-flex rounded-full border border-soil/20 px-7 py-3.5 text-sm font-semibold"
             >
-              ← App hub
+              ← Home
             </Link>
           </div>
         </section>

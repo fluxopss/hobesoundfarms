@@ -23,7 +23,7 @@ export const site = {
 export const modes = [
   {
     id: "market",
-    label: "Market",
+    label: "Farmers Market",
     short: "Market",
     href: "/market",
     desc: "60+ vendors, activities, live music",
@@ -31,7 +31,7 @@ export const modes = [
   },
   {
     id: "residents",
-    label: "Residents",
+    label: "Meet Our Residents",
     short: "Herd",
     href: "/animals",
     desc: "Meet the livestock of a working farm",
@@ -39,15 +39,15 @@ export const modes = [
   },
   {
     id: "nights",
-    label: "Nights",
-    short: "Nights",
+    label: "Coming Up",
+    short: "Events",
     href: "/events",
     desc: "Farm After Dark, sendoffs, line dancing",
     accent: "canopy",
   },
   {
     id: "experiences",
-    label: "Experiences",
+    label: "Farm Experiences",
     short: "Book",
     href: "/experiences",
     desc: "Weddings, field trips, parties, encounters",
@@ -68,7 +68,12 @@ export const intents = [
   { label: "Be a vendor at the market", href: "/visit?intent=vendor" },
 ] as const;
 
-export type ZoneMode = "market" | "residents" | "nights" | "experiences" | "visit";
+export type ZoneMode =
+  | "market"
+  | "residents"
+  | "nights"
+  | "experiences"
+  | "visit";
 
 export type MapZone = {
   id: string;
@@ -530,7 +535,7 @@ export const events = [
     when: "Every Sat & Sun · 9am – 2pm",
     desc: "60+ vendors, farm activities, food trucks, live music — year-round.",
     image: "/images/live/event-market.png",
-    cta: "Open Market Mode",
+    cta: "Explore Farmers Market",
     href: "/market",
   },
   {

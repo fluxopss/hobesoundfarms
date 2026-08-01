@@ -55,14 +55,12 @@ export function HubLanding() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="font-atlas text-[10px] text-citrus">
-            The Acreage · App hub
+            Welcome · Hobe Sound Farms
           </p>
           <h1 className="font-display mt-3 max-w-[14ch] text-[clamp(2.75rem,9vw,6rem)] leading-[0.88] tracking-tight">
-            You&apos;re on the property
+            Experience the farm
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-shell/75">
-            {site.blurb}
-          </p>
+          <p className="mt-4 max-w-xl text-lg text-shell/75">{site.blurb}</p>
         </motion.div>
 
         <div className="mt-8 flex gap-2 overflow-x-auto pb-2">
@@ -104,7 +102,7 @@ export function HubLanding() {
                   <div className="absolute inset-0 bg-soil/35 transition group-hover:bg-soil/15" />
                   <div className="relative z-10">
                     <p className="font-atlas text-[9px] text-citrus">
-                      Mode {String(i + 1).padStart(2, "0")}
+                      {String(i + 1).padStart(2, "0")}
                     </p>
                     <h2 className="font-display mt-1 text-2xl tracking-tight">
                       {mode.label}
@@ -123,13 +121,13 @@ export function HubLanding() {
             onClick={() => scrollTo("#atlas")}
             className="rounded-full bg-citrus px-7 py-3.5 text-sm font-bold text-soil transition hover:bg-citrus-deep hover:text-shell"
           >
-            Open interactive map
+            Explore the Farm Map
           </button>
           <Link
             href="/visit"
             className="rounded-full border border-shell/35 px-7 py-3.5 text-sm font-semibold text-shell transition hover:bg-shell/10"
           >
-            Plan a visit
+            Plan a Visit
           </Link>
         </div>
       </div>

@@ -171,7 +171,7 @@ export function MarketPulse({ embedded = false }: { embedded?: boolean }) {
               href="/market"
               className="rounded-full bg-citrus px-7 py-4 text-sm font-bold tracking-wide text-soil transition hover:bg-citrus-deep hover:text-shell"
             >
-              Enter Market Mode
+              Enter Farmers Market
             </Link>
             <Link
               href="/visit"

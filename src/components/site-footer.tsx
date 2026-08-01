@@ -38,20 +38,20 @@ export function SiteFooter() {
             href="/visit"
             className="mt-4 inline-block text-sm font-semibold text-citrus hover:underline"
           >
-            Open Visit OS →
+            Plan a Visit →
           </Link>
         </div>
         <div>
-          <p className="font-atlas text-[9px] text-shell/40">Modes</p>
+          <p className="font-atlas text-[9px] text-shell/40">Explore</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
               <Link href="/#hub" className="hover:text-citrus">
-                App hub
+                Home
               </Link>
             </li>
             <li>
               <Link href="/#atlas" className="hover:text-citrus">
-                Interactive map
+                Farm Map
               </Link>
             </li>
             {modes.map((mode) => (
@@ -63,7 +63,7 @@ export function SiteFooter() {
             ))}
             <li>
               <Link href="/visit" className="hover:text-citrus">
-                Visit OS
+                Plan a Visit
               </Link>
             </li>
           </ul>

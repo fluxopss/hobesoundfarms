@@ -18,19 +18,20 @@ export function ArriveStrip() {
           height={64}
           className="h-14 w-14 object-contain"
         />
-        <p className="font-atlas mt-8 text-[10px] text-citrus">Visit OS</p>
+        <p className="font-atlas mt-8 text-[10px] text-citrus">See you at the farm</p>
         <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-6xl">
-          Plan your day on the farm
+          Plan a Visit
         </h2>
         <p className="mt-4 max-w-lg text-mute">
-          Hours, directions, passes, and inquiries — your visit planner.
+          Hours, directions, passes, and inquiries — everything you need before
+          you arrive.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <Link
             href="/visit"
             className="rounded-full bg-soil px-8 py-4 text-sm font-bold text-shell transition hover:bg-citrus hover:text-soil"
           >
-            Open Visit OS
+            Plan a Visit
           </Link>
           <a
             href={site.mapsUrl}

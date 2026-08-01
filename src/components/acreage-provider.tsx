@@ -15,8 +15,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ENTERED_KEY = "hsf-acreage-v2";
-
 type AcreageContextValue = {
   reducedMotion: boolean;
   entered: boolean;
@@ -42,7 +40,7 @@ export const useTrail = useAcreage;
 export function AcreageProvider({ children }: { children: ReactNode }) {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [entered, setEnteredState] = useState(false);
-  const [activeMode, setActiveMode] = useState("atlas");
+  const [activeMode, setActiveMode] = useState("home");
   const [lenis, setLenis] = useState<Lenis | null>(null);
 
   useEffect(() => {
@@ -51,9 +49,16 @@ export function AcreageProvider({ children }: { children: ReactNode }) {
     apply();
     mq.addEventListener("change", apply);
 
-    // Fresh key so legacy gate/market sessions don't skip the new hub intro
-    const seen = sessionStorage.getItem(ENTERED_KEY) === "1";
-    if (seen || mq.matches) setEnteredState(true);
+    // Clear legacy skip keys — entrance must show every visit
+    sessionStorage.removeItem("hsf-acreage-v2");
+    sessionStorage.removeItem("hsf-gate-done");
+    sessionStorage.removeItem("hsf-acreage-entered");
+
+    // Always start at top — do not restore prior scroll position
+    window.scrollTo(0, 0);
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
 
     return () => mq.removeEventListener("change", apply);
   }, []);
@@ -101,7 +106,7 @@ export function AcreageProvider({ children }: { children: ReactNode }) {
   const setEntered = useCallback((v: boolean) => {
     setEnteredState(v);
     if (v) {
-      sessionStorage.setItem(ENTERED_KEY, "1");
+      window.scrollTo(0, 0);
       requestAnimationFrame(() => ScrollTrigger.refresh());
     }
   }, []);

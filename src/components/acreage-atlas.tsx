@@ -71,15 +71,14 @@ export function AcreageAtlas() {
       <div className="flex min-h-[100svh] flex-col justify-between px-5 py-24 sm:px-10 lg:px-16">
         <div className="relative z-10 max-w-2xl">
           <p className="font-atlas text-[10px] text-citrus">
-            Atlas · Real property map · 126 acres
+            Farm Map · 126 acres
           </p>
           <h2 className="font-display mt-3 text-4xl tracking-tight sm:text-6xl">
             Walk the property
           </h2>
           <p className="mt-3 max-w-lg text-shell/65">
-            Scroll to scrub. Filter by world. Tap pins for real place names from
-            the Hobe Sound Farms map — Gem Jungle, Animal Alley, Magnolia Barn,
-            and more.
+            Scroll to explore. Filter by area. Tap pins for real place names —
+            Gem Jungle, Animal Alley, Magnolia Barn, and more.
           </p>
         </div>
 
@@ -105,7 +104,7 @@ export function AcreageAtlas() {
               href={current.href}
               className="rounded-full border border-shell/30 px-5 py-2.5 text-sm font-semibold transition hover:border-citrus hover:bg-citrus hover:text-soil"
             >
-              Open {current.mode} →
+              Go there →
             </Link>
           )}
         </div>

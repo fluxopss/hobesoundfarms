@@ -32,7 +32,7 @@ export default function EventsPage() {
           <div className="grain absolute inset-0" />
           <div className="relative z-10 w-full px-5 pb-16 sm:px-10 lg:px-16">
             <p className="font-atlas text-[10px] text-citrus">
-              Mode · Nights · Coming up
+              Coming Up · Events & nights
             </p>
             <h1 className="font-display mt-4 text-[clamp(3rem,10vw,7rem)] leading-[0.85] tracking-tight">
               After dark
@@ -131,7 +131,7 @@ export default function EventsPage() {
               href="/market"
               className="inline-flex rounded-full bg-soil px-7 py-3.5 text-sm font-bold text-shell"
             >
-              Open Market Mode →
+              Farmers Market →
             </Link>
             <Link
               href="/visit#tickets"

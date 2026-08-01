@@ -8,7 +8,7 @@ import { modes, site } from "@/lib/content";
 import { useAcreage } from "@/components/acreage-provider";
 
 const nav = [
-  { href: "/", label: "Atlas", match: (p: string) => p === "/" },
+  { href: "/", label: "Home", match: (p: string) => p === "/" },
   ...modes.map((m) => ({
     href: m.href,
     label: m.label,
@@ -75,14 +75,17 @@ export function AtlasChrome() {
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Modes">
+          <nav
+            className="hidden items-center gap-1 lg:flex"
+            aria-label="Main"
+          >
             {nav.map((item) => {
               const active = item.match(pathname);
               return (
                 <Link
                   key={item.href}
                   href={item.href === "/" ? "/#hub" : item.href}
-                  className={`rounded-full px-3.5 py-2 text-[11px] font-medium tracking-wide transition ${
+                  className={`rounded-full px-3 py-2 text-[11px] font-medium tracking-wide transition ${
                     active
                       ? onDark
                         ? "bg-shell/15 text-shell ring-1 ring-citrus/70"
@@ -102,14 +105,14 @@ export function AtlasChrome() {
             href="/visit"
             className="rounded-full bg-citrus px-4 py-2.5 text-[11px] font-bold tracking-wide text-soil transition hover:bg-citrus-deep hover:text-shell"
           >
-            Plan visit
+            Plan a Visit
           </Link>
         </div>
       </header>
 
       <nav
         className="fixed inset-x-0 bottom-0 z-50 border-t border-shell/10 bg-soil/95 px-2 py-2 backdrop-blur-xl pb-safe md:hidden"
-        aria-label="Mode dock"
+        aria-label="Main dock"
       >
         <div className="flex items-stretch justify-around gap-1">
           <Link
@@ -118,7 +121,7 @@ export function AtlasChrome() {
               pathname === "/" ? "bg-citrus/20 text-citrus" : "text-shell/55"
             }`}
           >
-            Atlas
+            Home
           </Link>
           {modes.map((mode) => (
             <Link
